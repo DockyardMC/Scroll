@@ -40,3 +40,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+gradlew.bat
+gradlew
+.idea
+gradle/wrapper
