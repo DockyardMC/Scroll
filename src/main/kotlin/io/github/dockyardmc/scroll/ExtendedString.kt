@@ -3,26 +3,34 @@ package io.github.dockyardmc.scroll
 
 fun String.split(start: String, end: String): MutableList<String> {
     val result = mutableListOf<String>()
-    var startIndex = 0
 
-    this.forEachIndexed { _, _ ->
-        val startIdx = this.indexOf(start, startIndex)
-        if (startIdx == -1) {
-            result.add(this.substring(startIndex))
+    var out = ""
+    var open = false
+    var insideQuotes = false
+    this.forEachIndexed { index, it ->
+        if(insideQuotes && it != '\'') { out = "$out${it}"; return@forEachIndexed }
+        if(it == '\'') insideQuotes = !insideQuotes
+
+        if(it == '<') {
+            open = true
+            if(out.isNotEmpty()) {
+                result.add(out)
+            }
+            out = "$it"
             return@forEachIndexed
         }
+        out = "$out${it}"
 
-        val endIndex = this.indexOf(end, startIdx + start.length)
-        if (endIndex == -1) {
-            result.add(this.substring(startIndex))
-            return@forEachIndexed
+        if(it == '>') {
+            open = false
+            if(out.isNotEmpty()) {
+                result.add(out)
+            }
+            out = ""
         }
-
-        if (startIdx != startIndex) {
-            result.add(this.substring(startIndex, startIdx))
+        if(index == this.length - 1) {
+            result.add(out)
         }
-        result.add(this.substring(startIdx, endIndex + end.length))
-        startIndex = endIndex + end.length
     }
     return result
 }
