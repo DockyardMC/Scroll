@@ -1,10 +1,9 @@
 package io.github.dockyardmc.scroll
 
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToJsonElement
-import kotlin.math.log
-
 fun main() {
+
+    //Testing purposes only
+
     var test = """
         <white><i>hello <yellow><b>hello <aqua><u>hello<reset>! Welcome, <pink>LukynkaCZE<r>!
 
@@ -15,6 +14,8 @@ fun main() {
         <white>You can also write in <#ff2181>Custom HEX color<white>!!
 
         <white>And you can use replacables like <#ff6721><keybind|key.jump> <white>and <#ff2121><translate|biome.minecraft.windswept_hills>
+
+        <white>Ohhh and you can write in <font|alt><#9666ff>the enchanting language!!<r> See?
         
     """.trimIndent()
 
@@ -27,8 +28,9 @@ fun main() {
         test = test.plus("\n<yellow>WOO: <transition|$from|$to|$step>This is pretty cool! <gray>($step)")
     }
 
-    val serializer = Serializer()
-    val comp = serializer.serialize(test)
-    val json = Json.encodeToJsonElement<BaseComponent>(comp)
-    println("/tellraw @a $json")
+    val componentSerializer = ComponentSerializer()
+    val comp = componentSerializer.serialize(test)
+
+    // To be pasted to cmd block
+    println("/tellraw @a ${comp.toJson()}")
 }

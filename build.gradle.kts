@@ -1,16 +1,25 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    `maven-publish`
     kotlin("jvm") version "1.9.22"
     kotlin("plugin.serialization") version "1.9.23"
     application
 }
 
 group = "io.github.dockyardmc"
-version = "1.0-SNAPSHOT"
+version = "1.0"
+
+val githubUser: String = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USER")
+val githubPassword: String = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://maven.pkg.github.com/DockyardMC/Scroll")
+        credentials {username = githubUser; password = githubPassword}
+    }
 }
 
 dependencies {
@@ -29,4 +38,21 @@ tasks.withType<KotlinCompile> {
 
 application {
     mainClass.set("MainKt")
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/DockyardMC/Scroll")
+            credentials {username = githubUser; password = githubPassword}
+        }
+    }
+    publications {
+        register<MavenPublication>("gpr") {
+            artifactId = "scroll"
+            version = version
+            from(components["java"])
+        }
+    }
 }

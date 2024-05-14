@@ -31,8 +31,8 @@ fun rainbowHex(numSteps: Int): List<String> {
 }
 
 fun hexInterpolation(startColor: String, endColor: String, step: Float): String {
-    val startRGB = startColor.chunked(2).map { it.toInt(16) }
-    val endRGB = endColor.chunked(2).map { it.toInt(16) }
+    val startRGB = startColor.replace("#", "").chunked(2).map { it.toInt(16) }
+    val endRGB = endColor.replace("#", "").chunked(2).map { it.toInt(16) }
 
     val interpolatedRGB = startRGB.zip(endRGB) { start, end ->
         (start + (end - start) * step).toInt()

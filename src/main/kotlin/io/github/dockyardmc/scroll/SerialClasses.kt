@@ -2,10 +2,13 @@ package io.github.dockyardmc.scroll
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.encodeToJsonElement
 
 @Serializable
-open class BaseComponent(
-    open var extra: MutableList<BaseComponent>? = null,
+open class Component(
+    open var extra: MutableList<Component>? = null,
     open val keybind: String? = null,
     open val text: String? = null,
     open val translate: String? = null,
@@ -21,9 +24,13 @@ open class BaseComponent(
     open var clickEvent: ClickEvent? = null
 )
 
+fun Component.toJson(): JsonElement {
+    return Json.encodeToJsonElement<Component>(this)
+}
+
 class TextComponent(
     override var text: String,
-    override var extra: MutableList<BaseComponent>? = null,
+    override var extra: MutableList<Component>? = null,
     override var color: String? = null,
     override var bold: Boolean? = null,
     override var italic: Boolean? = null,
@@ -36,11 +43,11 @@ class TextComponent(
     override var hoverEvent: HoverEvent? = null,
     @SerialName("click_event")
     override var clickEvent: ClickEvent? = null
-): BaseComponent()
+): Component()
 
 class KeybindComponent(
     override val keybind: String,
-    override var extra: MutableList<BaseComponent>? = null,
+    override var extra: MutableList<Component>? = null,
     override var color: String? = null,
     override var bold: Boolean? = null,
     override var italic: Boolean? = null,
@@ -53,11 +60,11 @@ class KeybindComponent(
     override var hoverEvent: HoverEvent? = null,
     @SerialName("click_event")
     override var clickEvent: ClickEvent? = null
-): BaseComponent()
+): Component()
 
 class TranslatableComponent(
     override val translate: String,
-    override var extra: MutableList<BaseComponent>? = null,
+    override var extra: MutableList<Component>? = null,
     override var color: String? = null,
     override var bold: Boolean? = null,
     override var italic: Boolean? = null,
@@ -70,7 +77,7 @@ class TranslatableComponent(
     override var hoverEvent: HoverEvent? = null,
     @SerialName("click_event")
     override var clickEvent: ClickEvent? = null
-): BaseComponent()
+): Component()
 
 
 @Serializable
@@ -82,7 +89,7 @@ class ClickEvent(
 @Serializable
 class HoverEvent(
     val action: HoverAction,
-    val contents: BaseComponent? = null
+    val contents: Component? = null
 )
 
 @Serializable

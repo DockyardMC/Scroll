@@ -26,20 +26,4 @@ object ComponentColorTags {
         "<dark_gray>" to "#555555",
         "<black>" to "#000000",
     )
-
-    val formatTags = mutableMapOf<String, String>(
-        "<o>" to "§k",
-        "<obf>" to "§k",
-        "<obfuscated>" to "§k",
-        "<bold>" to "§l",
-        "<b>" to "§l",
-        "<s>" to "§k",
-        "<strike>" to "§k",
-        "<u>" to "§u",
-        "<underline>" to "§u",
-        "<i>" to "§i",
-        "<italic>" to "§i",
-        "<r>" to "§r",
-        "<reset>" to "§r",
-    )
 }
