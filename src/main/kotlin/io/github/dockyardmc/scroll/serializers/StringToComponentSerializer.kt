@@ -1,12 +1,15 @@
-package io.github.dockyardmc.scroll
+package io.github.dockyardmc.scroll.serializers
+
+import io.github.dockyardmc.scroll.*
+import io.github.dockyardmc.scroll.extensions.split
 
 
-class ComponentSerializer(private val depth: Int = 0) {
+class StringToComponentSerializer(private val depth: Int = 0) {
 
     private var components = mutableListOf<Component>()
     private var tokens = mutableListOf<String>()
     private var rainbowHex = rainbowHex(20)
-    private lateinit var innerComponentSerializer: ComponentSerializer
+    private lateinit var innerStringToComponentSerializer: StringToComponentSerializer
 
     private var color: String? = null
     private var bold: Boolean? = null
@@ -29,7 +32,9 @@ class ComponentSerializer(private val depth: Int = 0) {
         underline = null
         obfuscated = null
         strikethrough = null
-        if(includingColor) color = null
+        if(includingColor) {
+            color = null
+        }
         if(includingEvents) {
             hoverEvent = null
             clickEvent = null
@@ -38,7 +43,7 @@ class ComponentSerializer(private val depth: Int = 0) {
 
     fun serialize(string: String): Component {
         tokens = string.split("<", ">")
-        if(depth < 1) innerComponentSerializer = ComponentSerializer(depth + 1)
+        if(depth < 1) innerStringToComponentSerializer = StringToComponentSerializer(depth + 1)
 
 
         tokens.forEach {
@@ -46,12 +51,14 @@ class ComponentSerializer(private val depth: Int = 0) {
                 if(tokenIsColor(it)) {
                     color = getTokenColor(it)
                     resetFormatting()
+                    rainbow = false
                 }
 
                 if(it.startsWith("<#")) {
                     val hex = it.replace("<", "").replace(">", "")
                     color = hex
                     resetFormatting()
+                    rainbow = false
                 }
 
                 when(it) {
@@ -102,7 +109,9 @@ class ComponentSerializer(private val depth: Int = 0) {
                 if(it.startsWith("<keybind")) {
                     val split = it.split("|")
                     val key = split[1].replace("'", "").removeSuffix(">")
-                    components.add(Component(
+                    components.add(
+                        Component(
+                        text = null,
                         keybind = key,
                         color = color,
                         bold = bold,
@@ -113,14 +122,17 @@ class ComponentSerializer(private val depth: Int = 0) {
                         strikethrough = strikethrough,
                         hoverEvent = hoverEvent,
                         clickEvent = clickEvent
-                    ))
+                    )
+                    )
                     return@forEach
                 }
 
                 if(it.startsWith("<translate")) {
                     val split = it.split("|")
                     val value = split[1].replace("'", "").removeSuffix(">")
-                    components.add(Component(
+                    components.add(
+                        Component(
+                        text = null,
                         translate = value,
                         color = color,
                         font = font,
@@ -131,7 +143,8 @@ class ComponentSerializer(private val depth: Int = 0) {
                         strikethrough = strikethrough,
                         hoverEvent = hoverEvent,
                         clickEvent = clickEvent
-                    ))
+                    )
+                    )
                     return@forEach
                 }
 
@@ -139,7 +152,7 @@ class ComponentSerializer(private val depth: Int = 0) {
                     val split = it.split("|")
                     var hoverText = split[1].replace("'", "")
                     hoverText = hoverText.removeSuffix(">")
-                    val comp = innerComponentSerializer.serialize(hoverText)
+                    val comp = innerStringToComponentSerializer.serialize(hoverText)
                     hoverEvent = HoverEvent(
                         action = HoverAction.SHOW_TEXT,
                         contents = comp
@@ -182,7 +195,8 @@ class ComponentSerializer(private val depth: Int = 0) {
                 it.forEach { letter ->
                     if(currentRainbowIndex > 19) currentRainbowIndex = 0
                     val customColor = rainbowHex[currentRainbowIndex]
-                    components.add(Component(
+                    components.add(
+                        Component(
                         text = letter.toString(),
                         color = customColor,
                         font = font,
@@ -193,13 +207,15 @@ class ComponentSerializer(private val depth: Int = 0) {
                         strikethrough = strikethrough,
                         hoverEvent = hoverEvent,
                         clickEvent = clickEvent
-                    ))
+                    )
+                    )
                     currentRainbowIndex++
                 }
                 return@forEach
             }
 
-            components.add(Component(
+            components.add(
+                Component(
                 text = it,
                 color = color,
                 bold = bold,
@@ -210,8 +226,16 @@ class ComponentSerializer(private val depth: Int = 0) {
                 font = font,
                 hoverEvent = hoverEvent,
                 clickEvent = clickEvent
-            ))
+            )
+            )
         }
+        val outList = mutableListOf<Component>()
+        // Filter out empty text components created by parsing <keybind> and <translate>
+        components.forEach {
+            if(it.text != null && it.text!!.isEmpty()) return@forEach
+            outList.add(it)
+        }
+
         return Components.new(components)
     }
 

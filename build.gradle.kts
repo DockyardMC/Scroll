@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     `maven-publish`
     kotlin("jvm") version "1.9.22"
@@ -26,6 +24,9 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("io.github.jglrxavpok.hephaistos:common:2.2.0")
+    implementation("io.github.jglrxavpok.hephaistos:gson:2.2.0")
 }
 
 tasks.test {

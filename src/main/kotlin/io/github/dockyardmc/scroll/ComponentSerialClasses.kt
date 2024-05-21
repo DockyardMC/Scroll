@@ -1,10 +1,10 @@
 package io.github.dockyardmc.scroll
 
+import io.github.dockyardmc.scroll.serializers.ComponentToJsonSerializer
+import io.github.dockyardmc.scroll.serializers.ComponentToNbtSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.encodeToJsonElement
+import org.jglrxavpok.hephaistos.nbt.NBTCompound
 
 @Serializable
 open class Component(
@@ -22,14 +22,19 @@ open class Component(
     open var insertion: String? = null,
     open var hoverEvent: HoverEvent? = null,
     open var clickEvent: ClickEvent? = null
-)
+) {
+    fun toNBT(): NBTCompound {
+        return ComponentToNbtSerializer.serializeComponent(this)
+    }
 
-fun Component.toJson(): JsonElement {
-    return Json.encodeToJsonElement<Component>(this)
+    fun toJson(): String {
+        return ComponentToJsonSerializer.serialize(this)
+    }
 }
 
+
 class TextComponent(
-    override var text: String,
+    override val text: String,
     override var extra: MutableList<Component>? = null,
     override var color: String? = null,
     override var bold: Boolean? = null,

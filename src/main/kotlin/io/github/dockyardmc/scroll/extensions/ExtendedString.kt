@@ -1,5 +1,11 @@
-package io.github.dockyardmc.scroll
+package io.github.dockyardmc.scroll.extensions
 
+import io.github.dockyardmc.scroll.Component
+import io.github.dockyardmc.scroll.serializers.StringToComponentSerializer
+
+fun String.toComponent(): Component {
+    return StringToComponentSerializer().serialize(this)
+}
 
 fun String.split(start: String, end: String): MutableList<String> {
     val result = mutableListOf<String>()
@@ -11,7 +17,7 @@ fun String.split(start: String, end: String): MutableList<String> {
         if(insideQuotes && it != '\'') { out = "$out${it}"; return@forEachIndexed }
         if(it == '\'') insideQuotes = !insideQuotes
 
-        if(it == '<') {
+        if(it == start[0]) {
             open = true
             if(out.isNotEmpty()) {
                 result.add(out)
@@ -21,7 +27,7 @@ fun String.split(start: String, end: String): MutableList<String> {
         }
         out = "$out${it}"
 
-        if(it == '>') {
+        if(it == end[0]) {
             open = false
             if(out.isNotEmpty()) {
                 result.add(out)

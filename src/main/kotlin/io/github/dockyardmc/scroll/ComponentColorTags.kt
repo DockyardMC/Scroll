@@ -1,29 +1,48 @@
 package io.github.dockyardmc.scroll
 
+enum class TextColor(val hex: String) {
+    RED("#FF5555"),
+    YELLOW("#FFFF55"),
+    LIME("#55FF55"),
+    AQUA("#55FFFF"),
+    BLUE("#5555FF"),
+    PINK("#FF55FF"),
+    DARK_RED("#AA0000"),
+    ORANGE("#FFAA00"),
+    GREEN("#00AA00"),
+    CYAN("#00AAAA"),
+    DARK_BLUE("#0000AA"),
+    PURPLE("#AA00AA"),
+    WHITE("#FFFFFF"),
+    GRAY("#AAAAAA"),
+    DARK_GRAY("#555555"),
+    BLACK("#000000"),
+}
+
 object ComponentColorTags {
 
     val colorTags = mutableMapOf<String, String>(
-        "<red>" to "#FF5555",
-        "<yellow>" to "#FFFF55",
-        "<lime>" to "#55FF55",
-        "<aqua>" to "#55FFFF",
-        "<blue>" to "#5555FF",
-        "<pink>" to "#FF55FF",
+        "<red>" to TextColor.RED.hex,
+        "<yellow>" to TextColor.YELLOW.hex,
+        "<lime>" to TextColor.LIME.hex,
+        "<aqua>" to TextColor.AQUA.hex,
+        "<blue>" to TextColor.BLUE.hex,
+        "<pink>" to TextColor.PINK.hex,
 
-        "<dark red>" to "#AA0000",
-        "<dark_red>" to "#AA0000",
-        "<orange>" to "#FFAA00",
-        "<gold>" to "#FFAA00",
-        "<green>" to "#00AA00",
-        "<cyan>" to "#00AAAA",
-        "<dark blue>" to "#0000AA",
-        "<dark_blue>" to "#0000AA",
-        "<purple>" to "#AA00AA",
+        "<dark red>" to TextColor.DARK_RED.hex,
+        "<dark_red>" to TextColor.DARK_RED.hex,
+        "<orange>" to TextColor.ORANGE.hex,
+        "<gold>" to TextColor.ORANGE.hex,
+        "<green>" to TextColor.GREEN.hex,
+        "<cyan>" to TextColor.CYAN.hex,
+        "<dark blue>" to TextColor.DARK_BLUE.hex,
+        "<dark_blue>" to TextColor.DARK_BLUE.hex,
+        "<purple>" to TextColor.DARK_BLUE.hex,
 
-        "<white>" to "#FFFFFF",
-        "<gray>" to "#AAAAAA",
-        "<dark gray>" to "#555555",
-        "<dark_gray>" to "#555555",
-        "<black>" to "#000000",
+        "<white>" to TextColor.WHITE.hex,
+        "<gray>" to TextColor.GRAY.hex,
+        "<dark gray>" to TextColor.DARK_GRAY.hex,
+        "<dark_gray>" to TextColor.DARK_GRAY.hex,
+        "<black>" to TextColor.BLACK.hex,
     )
 }
