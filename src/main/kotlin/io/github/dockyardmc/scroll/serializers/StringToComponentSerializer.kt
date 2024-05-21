@@ -232,11 +232,11 @@ class StringToComponentSerializer(private val depth: Int = 0) {
         val outList = mutableListOf<Component>()
         // Filter out empty text components created by parsing <keybind> and <translate>
         components.forEach {
-            if(it.text != null && it.text!!.isEmpty()) return@forEach
+            if(it.text != null && it.text!!.isEmpty() && it.extra == null) return@forEach
             outList.add(it)
         }
 
-        return Components.new(components)
+        return Components.new(outList)
     }
 
 
