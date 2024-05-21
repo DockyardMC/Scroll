@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.dockyardmc"
-version = "1.0"
+version = "1.1"
 
 val githubUser: String = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USER")
 val githubPassword: String = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
@@ -41,6 +41,9 @@ tasks {
         kotlinOptions.jvmTarget = "17"
     }
     compileJava {
+        targetCompatibility = "17"
+    }
+    compileTestJava {
         targetCompatibility = "17"
     }
 }
