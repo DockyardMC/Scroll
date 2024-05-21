@@ -29,3 +29,5 @@ jobs:
         with:
           paths: "test-results/**/TEST-*.xml"
         if: always()
+      - name: JUnit Report Action
+      - uses: mikepenz/action-junit-report@v4
