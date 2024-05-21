@@ -3,6 +3,7 @@ A Minecraft Component library made for the [DockyardMC](https://github.com/Docky
 
 `<yellow>A Minecraft <rainbow><u>Component Library<yellow> for the <#3d91ff><bold>DockyardMC<yellow> project!`
 
+![obrazek](https://github.com/DockyardMC/Scroll/assets/48604271/304281ed-f72b-4036-9c66-69d929fe5644)
 
 ---
 
@@ -62,6 +63,10 @@ val textComponent = TextComponent(
     // ..other styling
 )
 ```
+![obrazek](https://github.com/DockyardMC/Scroll/assets/48604271/563c8062-4766-4d9d-9181-7bf11d36a684)
+
+
+
 **_Keybind Component_** (Reads the current keybinds from client)
 ```kotlin
 val keybindComponent = KeybindComponent(
@@ -69,6 +74,8 @@ val keybindComponent = KeybindComponent(
     // ..other styling
 )
 ```
+![obrazek](https://github.com/DockyardMC/Scroll/assets/48604271/1921623c-9357-4fc8-a042-ed3f3a2dfb14)
+
 **_Translatable Component_** (Reads the language file from client)
 ```kotlin
 val translatableComponent = TranslatableComponent(
@@ -76,6 +83,8 @@ val translatableComponent = TranslatableComponent(
     // ..other styling
 )
 ```
+![obrazek](https://github.com/DockyardMC/Scroll/assets/48604271/3fd17122-6ecd-4f5e-b287-f588250829c5)
+
 ---
 You can also create component that contains other components
 ```kotlin
@@ -88,12 +97,16 @@ val bigBoiComponent = Components.new(mutableListOf(
     KeybindComponent(keybind = "key.jump", color = TextColor.YELLOW, underlined = true)
 ))
 ```
+![obrazek](https://github.com/DockyardMC/Scroll/assets/48604271/88e2fd91-ce19-492a-a033-52b68529316f)
+
 ---
 ### String to Components
 You can also write your components using string format
 ```kotlin
 val component = "<yellow>HE'S <red><bold>ALLERGIC<yellow> TO BEANS!".toComponent()
 ```
+![obrazek](https://github.com/DockyardMC/Scroll/assets/48604271/f7d969c3-c9ab-426e-ad10-00027015a485)
+
 The following tags are valid:
 
 - Colors:
@@ -126,7 +139,7 @@ In some cases (format and reset) you can use shortened versions
 - `<s>` is short of `<strikethrough>`
 - `<r>` is short of `<reset>`
 
-_Currently, there is no support for custom tags_
+⚠️ _Currently, there is no support for custom tags_
 
 ---
 
@@ -147,4 +160,4 @@ You can convert Json to component using `JsonToComponentSerializer.serialize(jso
 
 ---
 
-_**There is currently no integration with either vanilla minecraft server components or adventure/minimessage**_
+⚠️ _**There is currently no integration with either vanilla minecraft server components or adventure/minimessage**_
