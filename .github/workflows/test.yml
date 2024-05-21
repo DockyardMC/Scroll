@@ -1,0 +1,31 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Test
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build-test:
+    environment: Actions
+    env:
+      GITHUB_TOKEN: ${{ secrets.TOKEN }}
+      GITHUB_USER: ${{ secrets.USER }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: GITHUB_USER=${{ env.GITHUB_USER }} GITHUB_TOKEN=${{ env.GITHUB_TOKEN }} gradle build
+      - run: gradle test
+      - name: Test Summary
+        uses: test-summary/action@v2
+        with:
+          paths: "test-results/**/TEST-*.xml"
+        if: always()
