@@ -40,6 +40,9 @@ tasks {
     compileTestKotlin {
         kotlinOptions.jvmTarget = "17"
     }
+    compileJava {
+        targetCompatibility = "17"
+    }
 }
 
 application {
