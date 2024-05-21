@@ -29,8 +29,12 @@ dependencies {
     implementation("io.github.jglrxavpok.hephaistos:gson:2.2.0")
 }
 
-tasks.test {
+tasks.withType<Test> {
     useJUnitPlatform()
+    val javaToolchains = project.extensions.getByType<JavaToolchainService>()
+    javaLauncher.set(javaToolchains.launcherFor {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    })
 }
 
 tasks {
