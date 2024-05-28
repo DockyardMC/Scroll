@@ -21,6 +21,23 @@ object ComponentToNbtSerializer {
         nbtWriter.put("text", c.text)
         nbtWriter.put("translate", c.translate)
         nbtWriter.put("underlined", c.underlined)
+
+        val hover = c.hoverEvent
+        if(hover != null) {
+            nbtWriter.put("hoverEvent", NBT.Compound { hoverWriter ->
+                hoverWriter.put("action", hover.action.name.lowercase())
+                hoverWriter.put("contents", serializeComponent(hover.contents!!))
+            })
+        }
+
+        val click = c.clickEvent
+        if(click != null) {
+            nbtWriter.put("clickEvent", NBT.Compound { clickWriter ->
+                clickWriter.put("action", click.action.name.lowercase())
+                clickWriter.put("value", click.value!!)
+            })
+        }
+
         val list = c.extra
         val listOut = mutableListOf<NBTCompound>()
         list?.forEach {
