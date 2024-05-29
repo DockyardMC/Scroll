@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.dockyardmc"
-version = "1.1"
+version = "1.2"
 
 val githubUser: String = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USER")
 val githubPassword: String = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
