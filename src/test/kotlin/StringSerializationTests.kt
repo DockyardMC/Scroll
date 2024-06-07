@@ -153,4 +153,12 @@ class StringSerializationTests {
 
         assertEquals(expected.toJson(), input.toComponent().toJson())
     }
+
+    @Test
+    fun testStyleStripping() {
+        val input = "<yellow>hello there! <rainbow><i>LukynkaCZE<yellow>! <lime><u>How are you doing this fine evening?<r>"
+        val expected = "hello there! LukynkaCZE! How are you doing this fine evening?"
+
+        assertEquals(expected, input.toComponent().stripStyling())
+    }
 }

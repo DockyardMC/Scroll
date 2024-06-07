@@ -101,8 +101,16 @@ class StringToComponentSerializer(private val depth: Int = 0) {
                     "</click>" -> clickEvent = null
                 }
 
-                if(it == "<rainbow>") {
+                // <rainbow|6|0.6>
+                if(it.startsWith("<rainbow")) {
+                    val split = it.split("|")
+                    val rainbowLength = if(split.size == 1) 20 else split[1].toInt()
+                    val lightness = if(split.size == 1) 1f else split[2].removeSuffix(">").toFloat()
+
+                    rainbowHex = rainbowHex(rainbowLength, lightness)
+
                     rainbow = true
+
                     resetFormatting()
                 }
 

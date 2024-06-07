@@ -30,6 +30,27 @@ open class Component(
     fun toJson(): String {
         return ComponentToJsonSerializer.serialize(this)
     }
+
+    fun stripStyling(): String {
+        return buildString {
+            getAllComponents().forEach {
+                append(it.text)
+            }
+        }
+    }
+
+    fun getAllComponents(): MutableList<Component> {
+        val recursiveComponentList = mutableListOf<Component>()
+        getComponentRecursive(this, recursiveComponentList)
+        return recursiveComponentList
+    }
+
+    private fun getComponentRecursive(component: Component, componentList: MutableList<Component>) {
+        component.extra?.forEach {
+            componentList.add(it)
+            getComponentRecursive(it, componentList)
+        }
+    }
 }
 
 

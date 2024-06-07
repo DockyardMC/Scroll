@@ -2,7 +2,7 @@ package io.github.dockyardmc.scroll
 
 import kotlin.math.roundToInt
 
-fun hsvToRgb(h: Float, s: Float, v: Float): Triple<Int, Int, Int> {
+fun hsvToRgb(h: Float, s: Float, v: Float): RGB {
     val h_i = (h * 6).toInt()
     val f = h * 6 - h_i
     val p = v * (1 - s)
@@ -16,18 +16,46 @@ fun hsvToRgb(h: Float, s: Float, v: Float): Triple<Int, Int, Int> {
         4 -> Triple(t, p, v)
         else -> Triple(v, p, q)
     }
-    return Triple((r * 255).roundToInt(), (g * 255).roundToInt(), (b * 255).roundToInt())
+    return RGB((r * 255).roundToInt(), (g * 255).roundToInt(), (b * 255).roundToInt())
 }
 
-fun rainbowHex(numSteps: Int): List<String> {
+fun rainbowHex(numSteps: Int, lightness: Float = 1f): List<String> {
     val colors = mutableListOf<String>()
     for (i in 0..<numSteps) {
         val hue = i.toFloat() / numSteps
-        val (r, g, b) = hsvToRgb(hue, 1f, 1f)
+        val rgb = hsvToRgb(hue, 1f, 1f)
+        val lightAdjusted = adjustLightness(rgb, lightness)
+        val (r, g, b) = lightAdjusted
         val hexColor = String.format("#%02X%02X%02X", r, g, b)
         colors.add(hexColor)
     }
     return colors
+}
+
+data class RGB(var r: Int, var g: Int, var b: Int)
+
+fun adjustLightness(rgb: RGB, factor: Float): RGB {
+    val clampedFactor = factor.coerceIn(0f, 2f)
+
+    val newR = if (clampedFactor >= 1) {
+        rgb.r + ((255 - rgb.r) * (clampedFactor - 1)).toInt()
+    } else {
+        (rgb.r * clampedFactor).toInt()
+    }.coerceIn(0, 255)
+
+    val newG = if (clampedFactor >= 1) {
+        rgb.g + ((255 - rgb.g) * (clampedFactor - 1)).toInt()
+    } else {
+        (rgb.g * clampedFactor).toInt()
+    }.coerceIn(0, 255)
+
+    val newB = if (clampedFactor >= 1) {
+        rgb.b + ((255 - rgb.b) * (clampedFactor - 1)).toInt()
+    } else {
+        (rgb.b * clampedFactor).toInt()
+    }.coerceIn(0, 255)
+
+    return RGB(newR, newG, newB)
 }
 
 fun hexInterpolation(startColor: String, endColor: String, step: Float): String {

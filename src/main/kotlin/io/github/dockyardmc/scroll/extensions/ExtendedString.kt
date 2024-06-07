@@ -7,6 +7,10 @@ fun String.toComponent(): Component {
     return StringToComponentSerializer().serialize(this)
 }
 
+fun String.stripComponentTags(): String {
+    return this.toComponent().stripStyling()
+}
+
 fun String.split(start: String, end: String): MutableList<String> {
     val result = mutableListOf<String>()
 
