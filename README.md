@@ -14,40 +14,29 @@ A Minecraft Component library made for the [DockyardMC](https://github.com/Docky
 ```kotlin
 repositories {
     maven {
-        url = uri("https://maven.pkg.github.com/DockyardMC/Scroll")
-        credentials {
-            project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USER")
-            project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
-        }
+        name = "devOS"
+        url = uri("https://mvn.devos.one/releases")
     }
 }
 
 dependencies {
-    implementation("io.github.dockyardmc:scroll:<version>")
+    implementation("io.github.dockyardmc:scroll:1.4")
 }
 ```
 <img src="https://github.com/LukynkaCZE/PrettyLog/assets/48604271/3293feca-7395-4100-8b61-257ba40dbe3c" width="18px"></img>
-**Gradle**
+**Gradle Groovy**
 ```groovy
 repositories {
-    mavenCentral()
-    maven {
-        name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/DockyardMC/Scroll")
-        credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USER")
-            password = project.findProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")
-        }
-    }
+  maven {
+    name "devOS"
+    url "https://mvn.devos.one/releases"
+  }
 }
 
 dependencies {
-  implementation 'io.github.dockyardmc:scroll:<version>'
+  implementation 'io.github.dockyardmc:scroll:1.4'
 }
 ```
-
-**Note:** You will need to set `gpr.user` to your github username and `gpr.token` to your github access token in `gradle.properties` [(Authenticating to Github Packages)](https://docs.github.com/en/packages/learn-github-packages/introduction-to-github-packages#authenticating-to-github-packages). Alternativly you can also set `GITHUB_USER` and `GITHUB_TOKEN` in your environment variable
-
 ---
 
 ## Usage

@@ -48,5 +48,3 @@ fun MutableNBTCompound.put(key: String, value: List<NBTCompound>?) {
     if(value.isEmpty()) return
     this.put(key, NBT.List(NBTType.TAG_Compound, value))
 }
-
-

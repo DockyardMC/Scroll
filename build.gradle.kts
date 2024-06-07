@@ -8,16 +8,8 @@ plugins {
 group = "io.github.dockyardmc"
 version = "1.4"
 
-val githubUser: String = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USER")
-val githubPassword: String = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
-
-
 repositories {
     mavenCentral()
-    maven {
-        url = uri("https://maven.pkg.github.com/DockyardMC/Scroll")
-        credentials {username = githubUser; password = githubPassword}
-    }
 }
 
 dependencies {
@@ -59,13 +51,16 @@ application {
 publishing {
     repositories {
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/DockyardMC/Scroll")
-            credentials {username = githubUser; password = githubPassword}
+            url = uri("https://mvn.devos.one/releases")
+            credentials {
+                username = System.getenv()["MAVEN_USER"]
+                password = System.getenv()["MAVEN_PASS"]
+            }
         }
     }
     publications {
-        register<MavenPublication>("gpr") {
+        register<MavenPublication>("maven") {
+            groupId = "io.github.dockyardmc"
             artifactId = "scroll"
             version = version
             from(components["java"])
