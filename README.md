@@ -1,3 +1,5 @@
+[![wakatime](https://wakatime.com/badge/github/DockyardMC/Scroll.svg)](https://wakatime.com/badge/github/DockyardMC/Scroll)
+
 # Scroll 📜
 A Minecraft Component library made for the [DockyardMC](https://github.com/DockyardMC/Dockyard) project
 
