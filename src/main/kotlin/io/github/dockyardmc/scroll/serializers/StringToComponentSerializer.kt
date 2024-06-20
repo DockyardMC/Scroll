@@ -66,8 +66,10 @@ class StringToComponentSerializer(private val depth: Int = 0) {
                     "<bold>" -> bold = true
                     "<i>",
                     "<italic>" -> italic = true
+                    "<italics>" -> italic = true
                     "<u>",
                     "<underline>" -> underline = true
+                    "<underlined>" -> underline = true
                     "<o>",
                     "<obfuscated>" -> obfuscated = true
                     "<s>",
@@ -99,9 +101,22 @@ class StringToComponentSerializer(private val depth: Int = 0) {
                     }
                     "</hover>" -> hoverEvent = null
                     "</click>" -> clickEvent = null
+                    "</bold>" -> bold = null
+                    "</b>" -> bold = null
+                    "</italic>" -> italic = null
+                    "</italics>" -> italic = null
+                    "</i>" -> italic = null
+                    "</underline>" -> underline = null
+                    "</underlined>" -> underline = null
+                    "</u>" -> underline = null
+                    "</obfuscated>" -> obfuscated = null
+                    "</o>" -> obfuscated = null
+                    "</strikethrough>" -> strikethrough = null
+                    "</s>" -> strikethrough = null
+                    "</rainbow>" -> strikethrough = false
+                    "</font>" -> font = null
                 }
 
-                // <rainbow|6|0.6>
                 if(it.startsWith("<rainbow")) {
                     val split = it.split("|")
                     val rainbowLength = if(split.size == 1) 20 else split[1].toInt()
@@ -186,7 +201,6 @@ class StringToComponentSerializer(private val depth: Int = 0) {
                     )
                 }
 
-                // <transition|#fd91ff|#caff91|0>
                 if(it.startsWith("<transition")) {
                     val split = it.split("|")
                     val colorFrom = split[1]

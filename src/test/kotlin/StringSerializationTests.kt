@@ -40,6 +40,34 @@ class StringSerializationTests {
     }
 
     @Test
+    fun testClosingTags() {
+        val input = "<bold><underlined><italics><strikethrough><obfuscated>test </obfuscated>test </strikethrough>test </italics>test </underlined>test </bold>test"
+        val expected = Components.new(mutableListOf(
+            TextComponent("test ", bold = true, underlined = true, italic = true, strikethrough = true, obfuscated = true),
+            TextComponent("test ", bold = true, underlined = true, italic = true, strikethrough = true),
+            TextComponent("test ", bold = true, underlined = true, italic = true),
+            TextComponent("test ", bold = true, underlined = true),
+            TextComponent("test ", bold = true),
+            TextComponent("test"),
+        ))
+        assertEquals(expected.toJson(), input.toComponent().toJson())
+    }
+
+    @Test
+    fun testClosingTagsMini() {
+        val input = "<b><u><i><s><o>test </o>test </s>test </i>test </u>test </b>test"
+        val expected = Components.new(mutableListOf(
+            TextComponent("test ", bold = true, underlined = true, italic = true, strikethrough = true, obfuscated = true),
+            TextComponent("test ", bold = true, underlined = true, italic = true, strikethrough = true),
+            TextComponent("test ", bold = true, underlined = true, italic = true),
+            TextComponent("test ", bold = true, underlined = true),
+            TextComponent("test ", bold = true),
+            TextComponent("test"),
+        ))
+        assertEquals(expected.toJson(), input.toComponent().toJson())
+    }
+
+    @Test
     fun testFormatting() {
         val inputToExpectedOutput = mutableMapOf<String, Component>(
             "<b>test" to TextComponent("test", bold = true),

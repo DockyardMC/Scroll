@@ -99,12 +99,9 @@ class TranslatableComponent(
     override var obfuscated: Boolean? = null,
     override var font: String? = null,
     override var insertion: String? = null,
-    @SerialName("hoverEvent")
     override var hoverEvent: HoverEvent? = null,
-    @SerialName("click_event")
     override var clickEvent: ClickEvent? = null
 ): Component()
-
 
 @Serializable
 class ClickEvent(
