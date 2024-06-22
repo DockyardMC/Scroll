@@ -7,6 +7,14 @@ fun String.toComponent(): Component {
     return StringToComponentSerializer().serialize(this)
 }
 
+fun String.scrollSanitized(): String {
+    var out = ""
+    this.forEachIndexed { index, char ->
+        out += (if(char.toString() == "<") "\\<" else char.toString())
+    }
+    return out
+}
+
 fun String.stripComponentTags(): String {
     return this.toComponent().stripStyling()
 }
@@ -21,7 +29,7 @@ fun String.split(start: String, end: String): MutableList<String> {
         if(insideQuotes && it != '\'') { out = "$out${it}"; return@forEachIndexed }
         if(it == '\'') insideQuotes = !insideQuotes
 
-        if(it == start[0]) {
+        if(it == start[0] && getCharacterBefore(this, index).toString() != "\\") {
             open = true
             if(out.isNotEmpty()) {
                 result.add(out)
@@ -29,9 +37,10 @@ fun String.split(start: String, end: String): MutableList<String> {
             out = "$it"
             return@forEachIndexed
         }
+        if(it.toString() == "\\" && getCharacterAfter(this, index) == start[0]) return@forEachIndexed
         out = "$out${it}"
 
-        if(it == end[0]) {
+        if(it == end[0] && open) {
             open = false
             if(out.isNotEmpty()) {
                 result.add(out)
@@ -43,4 +52,16 @@ fun String.split(start: String, end: String): MutableList<String> {
         }
     }
     return result
+}
+
+fun getCharacterBefore(string: String, currentIndex: Int): Char? {
+    val index = currentIndex - 1
+    val value = if(index < 0) null else string[index]
+    return value
+}
+
+fun getCharacterAfter(string: String, currentIndex: Int): Char? {
+    val index = currentIndex + 1
+    val value = if(index > string.toMutableList().size) null else string[index]
+    return value
 }

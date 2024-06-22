@@ -45,7 +45,6 @@ class StringToComponentSerializer(private val depth: Int = 0) {
         tokens = string.split("<", ">")
         if(depth < 1) innerStringToComponentSerializer = StringToComponentSerializer(depth + 1)
 
-
         tokens.forEach {
             if(it.startsWith("<") && it.endsWith(">")) {
                 if(tokenIsColor(it)) {

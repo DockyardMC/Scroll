@@ -1,4 +1,5 @@
 import io.github.dockyardmc.scroll.*
+import io.github.dockyardmc.scroll.extensions.scrollSanitized
 import io.github.dockyardmc.scroll.extensions.toComponent
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -129,6 +130,25 @@ class StringSerializationTests {
         ))
 
         assertEquals(expected.toJson(), input.toComponent().toJson())
+    }
+
+    @Test
+    fun testEscapes() {
+        val input = "Missing argument \"mode\": /gamemode \\<mode> \\<bold>test</bold>"
+        val expected = Components.new(mutableListOf(
+            TextComponent("Missing argument \"mode\": /gamemode <mode> <bold>test")
+        ))
+
+        assertEquals(expected.toJson(), input.toComponent().toJson())
+    }
+
+    @Test
+    fun testScrollSanitization() {
+        val input = "Player123: Did you know you can type in <red>red and <bold>bold</bold><yellow> and <rainbow>rainboooowww"
+        val expected = Components.new(mutableListOf(
+            TextComponent("Player123: Did you know you can type in <red>red and <bold>bold</bold><yellow> and <rainbow>rainboooowww")
+        ))
+        assertEquals(expected.toJson(), input.scrollSanitized().toComponent().toJson())
     }
 
     @Test

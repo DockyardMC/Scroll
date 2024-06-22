@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.dockyardmc:scroll:1.5")
+    implementation("io.github.dockyardmc:scroll:1.6")
 }
 ```
 <img src="https://github.com/LukynkaCZE/PrettyLog/assets/48604271/3293feca-7395-4100-8b61-257ba40dbe3c" width="18px"></img>
@@ -36,7 +36,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'io.github.dockyardmc:scroll:1.5'
+  implementation 'io.github.dockyardmc:scroll:1.6'
 }
 ```
 ---
@@ -130,7 +130,22 @@ In some cases (format and reset) you can use shortened versions
 - `<s>` is short of `<strikethrough>`
 - `<r>` is short of `<reset>`
 
+You also end tags by prefixing the tag with `/`
+- `<bold>this is bold :D</bold> this is not :(`
+
 ⚠️ _Currently, there is no support for custom tags_
+
+---
+
+## Sanitization & Escapes
+
+You can escape tag by putting `\\` at the begging of it
+
+`<lime>Please login using /login \\<password>` will result to `"Please login using /login <password>"`
+
+You can sanitize string using `String.scrollSanitized()` This is recommended for any player input
+
+`"Player123: omg <red>red color and <bold>bold woah".scrollSanitized()` would result to `"Player123: omg \\<red>red color and \\<bold>bold woah"` 
 
 ---
 
