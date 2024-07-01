@@ -1,48 +1,50 @@
 package io.github.dockyardmc.scroll
 
-enum class TextColor(val hex: String) {
-    RED("#FF5555"),
-    YELLOW("#FFFF55"),
-    LIME("#55FF55"),
-    AQUA("#55FFFF"),
-    BLUE("#5555FF"),
-    PINK("#FF55FF"),
-    DARK_RED("#AA0000"),
-    ORANGE("#FFAA00"),
+//Ordered in precise way cause text colors used to be enum in the minecraft client. It still uses that in some packets
+//https://wiki.vg/Text_formatting#Colors
+enum class LegacyTextColor(val hex: String) {
+    BLACK("#000000"),
+    DARK_BLUE("#0000AA"),
     GREEN("#00AA00"),
     CYAN("#00AAAA"),
-    DARK_BLUE("#0000AA"),
+    DARK_RED("#AA0000"),
     PURPLE("#AA00AA"),
-    WHITE("#FFFFFF"),
+    ORANGE("#FFAA00"),
     GRAY("#AAAAAA"),
     DARK_GRAY("#555555"),
-    BLACK("#000000"),
+    BLUE("#5555FF"),
+    LIME("#55FF55"),
+    AQUA("#55FFFF"),
+    RED("#FF5555"),
+    PINK("#FF55FF"),
+    YELLOW("#FFFF55"),
+    WHITE("#FFFFFF"),
 }
 
 object ComponentColorTags {
 
     val colorTags = mutableMapOf<String, String>(
-        "<red>" to TextColor.RED.hex,
-        "<yellow>" to TextColor.YELLOW.hex,
-        "<lime>" to TextColor.LIME.hex,
-        "<aqua>" to TextColor.AQUA.hex,
-        "<blue>" to TextColor.BLUE.hex,
-        "<pink>" to TextColor.PINK.hex,
+        "<red>" to LegacyTextColor.RED.hex,
+        "<yellow>" to LegacyTextColor.YELLOW.hex,
+        "<lime>" to LegacyTextColor.LIME.hex,
+        "<aqua>" to LegacyTextColor.AQUA.hex,
+        "<blue>" to LegacyTextColor.BLUE.hex,
+        "<pink>" to LegacyTextColor.PINK.hex,
 
-        "<dark red>" to TextColor.DARK_RED.hex,
-        "<dark_red>" to TextColor.DARK_RED.hex,
-        "<orange>" to TextColor.ORANGE.hex,
-        "<gold>" to TextColor.ORANGE.hex,
-        "<green>" to TextColor.GREEN.hex,
-        "<cyan>" to TextColor.CYAN.hex,
-        "<dark blue>" to TextColor.DARK_BLUE.hex,
-        "<dark_blue>" to TextColor.DARK_BLUE.hex,
-        "<purple>" to TextColor.DARK_BLUE.hex,
+        "<dark red>" to LegacyTextColor.DARK_RED.hex,
+        "<dark_red>" to LegacyTextColor.DARK_RED.hex,
+        "<orange>" to LegacyTextColor.ORANGE.hex,
+        "<gold>" to LegacyTextColor.ORANGE.hex,
+        "<green>" to LegacyTextColor.GREEN.hex,
+        "<cyan>" to LegacyTextColor.CYAN.hex,
+        "<dark blue>" to LegacyTextColor.DARK_BLUE.hex,
+        "<dark_blue>" to LegacyTextColor.DARK_BLUE.hex,
+        "<purple>" to LegacyTextColor.DARK_BLUE.hex,
 
-        "<white>" to TextColor.WHITE.hex,
-        "<gray>" to TextColor.GRAY.hex,
-        "<dark gray>" to TextColor.DARK_GRAY.hex,
-        "<dark_gray>" to TextColor.DARK_GRAY.hex,
-        "<black>" to TextColor.BLACK.hex,
+        "<white>" to LegacyTextColor.WHITE.hex,
+        "<gray>" to LegacyTextColor.GRAY.hex,
+        "<dark gray>" to LegacyTextColor.DARK_GRAY.hex,
+        "<dark_gray>" to LegacyTextColor.DARK_GRAY.hex,
+        "<black>" to LegacyTextColor.BLACK.hex,
     )
 }
