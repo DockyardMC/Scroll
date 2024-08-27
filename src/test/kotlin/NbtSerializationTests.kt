@@ -3,10 +3,44 @@ import io.github.dockyardmc.scroll.extensions.put
 import io.github.dockyardmc.scroll.extensions.toComponent
 import org.jglrxavpok.hephaistos.nbt.NBT
 import kotlin.test.Test
+import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 class NbtSerializationTests {
+
+    @Test
+    fun nbtToComponentTest(){
+        val nbt = NBT.Compound {
+            it.put("hoverEvent", NBT.Compound { hover ->
+                hover.put("action", "show_text")
+                hover.put("contents", NBT.Compound { hoverIn ->
+                    hoverIn.put("extra", NBT.Compound {
+                        it.put("extra", NBT.Compound { extrahover ->
+                            extrahover.put("text", "Click to open the store URL")
+                            extrahover.put("color", ComponentColorTags.colorTags["<yellow>"])
+                        })
+                        it.put("text", "")
+                    })
+
+                })
+            })
+            it.put("text", "CLICK HERE")
+            it.put("bold", true)
+            it.put("clickEvent", NBT.Compound { click ->
+                click.put("action", "open_url")
+                click.put("value", "https://store.mccisland.net")
+            })
+            it.put("underline", true)
+            it.put("color", ComponentColorTags.colorTags["<lime>"])
+        }
+        val expected = "<lime><b><u><hover|'<yellow>Click to open the store URL'><click|open_url|https://store.mccisland.net>CLICK HERE".toComponent()
+        val final = NBT.Compound {
+            it.put("extra", mutableListOf(nbt))
+            it.put("text", "")
+        }
+        assertEquals(expected.getAllComponents().size, final.toComponent().getAllComponents().size)
+    }
 
 
     @Test
@@ -22,7 +56,7 @@ class NbtSerializationTests {
                                 extrahover.put("text", "Click to open the store URL")
                                 extrahover.put("color", ComponentColorTags.colorTags["<yellow>"])
                             })
-                            it.put("texta", "")
+                            it.put("text", "")
                         })
 
                     })

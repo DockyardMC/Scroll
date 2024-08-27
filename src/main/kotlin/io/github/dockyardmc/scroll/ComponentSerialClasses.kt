@@ -9,9 +9,9 @@ import org.jglrxavpok.hephaistos.nbt.NBTCompound
 @Serializable
 open class Component(
     open var extra: MutableList<Component>? = null,
-    open val keybind: String? = null,
-    open val text: String? = null,
-    open val translate: String? = null,
+    open var keybind: String? = null,
+    open var text: String? = null,
+    open var translate: String? = null,
     open var color: String? = null,
     open var bold: Boolean? = null,
     open var italic: Boolean? = null,
@@ -55,7 +55,7 @@ open class Component(
 
 
 class TextComponent(
-    override val text: String,
+    override var text: String?,
     override var extra: MutableList<Component>? = null,
     override var color: String? = null,
     override var bold: Boolean? = null,
@@ -72,7 +72,7 @@ class TextComponent(
 ): Component()
 
 class KeybindComponent(
-    override val keybind: String,
+    override var keybind: String?,
     override var extra: MutableList<Component>? = null,
     override var color: String? = null,
     override var bold: Boolean? = null,
@@ -89,7 +89,7 @@ class KeybindComponent(
 ): Component()
 
 class TranslatableComponent(
-    override val translate: String,
+    override var translate: String?,
     override var extra: MutableList<Component>? = null,
     override var color: String? = null,
     override var bold: Boolean? = null,

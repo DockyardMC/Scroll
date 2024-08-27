@@ -45,6 +45,7 @@ object ComponentToNbtSerializer {
             listOut.add(comp)
         }
         nbtWriter.put("extra", listOut)
+
         val nbtCompound = NBT.Compound { root: MutableNBTCompound ->
             nbtWriter.forEach {
                 root.put(it.key, it.value)
