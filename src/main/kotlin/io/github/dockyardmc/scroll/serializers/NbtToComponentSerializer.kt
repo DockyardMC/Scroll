@@ -1,7 +1,9 @@
 package io.github.dockyardmc.scroll.serializers
 
 import io.github.dockyardmc.scroll.*
+import org.jglrxavpok.hephaistos.nbt.NBT
 import org.jglrxavpok.hephaistos.nbt.NBTCompound
+import org.jglrxavpok.hephaistos.nbt.NBTString
 
 object NbtToComponentSerializer {
 
@@ -36,11 +38,18 @@ object NbtToComponentSerializer {
             component.clickEvent = ClickEvent(ClickAction.valueOf(action.uppercase()), value)
         }
 
-        val list = nbt.getList<NBTCompound>("extra")
+        val list = nbt.getList<NBT>("extra")
 
         val listOut = mutableListOf<Component>()
-        list?.forEach { listOut.add(serializeNbt(it)) }
-        if(listOut.isNotEmpty()) component.extra = listOut
+        list?.forEach {
+            if (it is NBTCompound) {
+                listOut.add(serializeNbt(it))
+            }
+            if(it is NBTString) {
+                listOut.add(Component(text = it.value))
+            }
+        }
+        if (listOut.isNotEmpty()) component.extra = listOut
 
         return component
     }
