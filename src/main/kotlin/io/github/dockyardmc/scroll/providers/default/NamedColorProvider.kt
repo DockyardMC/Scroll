@@ -16,8 +16,7 @@ class NamedColorProvider :
     }
 
     override fun formatClosing(context: FormatProviderContext, component: Component) {
-        component.resetFormatting()
-
+        component.resetFormatting(false)
     }
 
 }

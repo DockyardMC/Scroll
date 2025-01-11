@@ -31,6 +31,10 @@ open class Component(
         }
     }
 
+    override fun toString(): String {
+        return this.stripStyling()
+    }
+
     fun toNBT(): NBTCompound {
         return ComponentToNbtSerializer.serializeComponent(this)
     }
@@ -60,19 +64,21 @@ open class Component(
         }
     }
 
-    fun resetFormatting() {
-        this.clickEvent = null
-        this.font = null
+    fun resetFormatting(includingFont: Boolean = true) {
         this.color = null
         this.strikethrough = null
         this.underlined = null
         this.font = null
         this.italic = null
         this.bold = null
-        this.hoverEvent = null
-        this.obfuscated = null
-        this.insertion = null
-        this.keybind = null
-        this.translate = null
+        if(includingFont) {
+            this.font = null
+            this.hoverEvent = null
+            this.obfuscated = null
+            this.insertion = null
+            this.keybind = null
+            this.translate = null
+            this.clickEvent = null
+        }
     }
 }
