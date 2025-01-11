@@ -1,9 +1,8 @@
-import io.github.dockyardmc.scroll.ComponentColorTags
+import io.github.dockyardmc.scroll.ScrollUtil
 import io.github.dockyardmc.scroll.extensions.put
 import io.github.dockyardmc.scroll.extensions.toComponent
 import org.jglrxavpok.hephaistos.nbt.NBT
 import kotlin.test.Test
-import kotlin.test.assertContains
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -18,7 +17,7 @@ class NbtSerializationTests {
                     hoverIn.put("extra", NBT.Compound {
                         it.put("extra", NBT.Compound { extrahover ->
                             extrahover.put("text", "Click to open the store URL")
-                            extrahover.put("color", ComponentColorTags.colorTags["<yellow>"])
+                            extrahover.put("color", ScrollUtil.colorTags["<yellow>"])
                         })
                         it.put("text", "")
                     })
@@ -32,9 +31,9 @@ class NbtSerializationTests {
                 click.put("value", "https://store.mccisland.net")
             })
             it.put("underline", true)
-            it.put("color", ComponentColorTags.colorTags["<lime>"])
+            it.put("color", ScrollUtil.colorTags["<lime>"])
         }
-        val expected = "<lime><b><u><hover|'<yellow>Click to open the store URL'><click|open_url|https://store.mccisland.net>CLICK HERE".toComponent()
+        val expected = "<lime><b><u><hover:show_text:'<yellow>Click to open the store URL'><click:open_url:https://store.mccisland.net>CLICK HERE".toComponent()
         val final = NBT.Compound {
             it.put("extra", mutableListOf(nbt))
             it.put("text", "")
@@ -54,7 +53,7 @@ class NbtSerializationTests {
                         hoverIn.put("extra", NBT.Compound {
                             it.put("extra", NBT.Compound { extrahover ->
                                 extrahover.put("text", "Click to open the store URL")
-                                extrahover.put("color", ComponentColorTags.colorTags["<yellow>"])
+                                extrahover.put("color", ScrollUtil.colorTags["<yellow>"])
                             })
                             it.put("text", "")
                         })
@@ -68,7 +67,7 @@ class NbtSerializationTests {
                     click.put("value", "https://store.mccisland.net")
                 })
                 it.put("underline", true)
-                it.put("color", ComponentColorTags.colorTags["<lime>"])
+                it.put("color", ScrollUtil.colorTags["<lime>"])
             }
         )
         val final = NBT.Compound {
@@ -83,14 +82,14 @@ class NbtSerializationTests {
 
     @Test
     fun testStringToNbt() {
-        val input = "<#ff54aa>omg haiiii bestie AsoDesu_ <pink><b>:3<r> <keybind|key.jump> to jump. <translate|advMode.mode> should be advMode.mode"
+        val input = "<#ff54aa>omg haiiii bestie AsoDesu_ <pink><b>:3<r> <keybind:key.jump> to jump. <translate:advMode.mode> should be advMode.mode"
         val expected = mutableListOf(
             NBT.Compound {
                 it.put("text", "omg haiiii bestie AsoDesu_ ")
                 it.put("color", "#ff54aa")
             },
             NBT.Compound {
-                it.put("color", ComponentColorTags.colorTags["<pink>"])
+                it.put("color", ScrollUtil.colorTags["<pink>"])
                 it.put("bold", true)
                 it.put("text", ":3")
             },
