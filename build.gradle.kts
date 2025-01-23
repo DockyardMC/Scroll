@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "io.github.dockyardmc"
-version = "2.1"
+version = "2.2"
 
 repositories {
     mavenCentral()
@@ -32,6 +32,10 @@ tasks.withType<Test> {
     javaLauncher.set(javaToolchains.launcherFor {
         languageVersion.set(JavaLanguageVersion.of(21))
     })
+}
+
+tasks.withType<PublishToMavenRepository> {
+    dependsOn("test")
 }
 
 tasks {

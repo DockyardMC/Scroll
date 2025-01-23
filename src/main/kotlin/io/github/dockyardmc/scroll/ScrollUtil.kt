@@ -88,15 +88,49 @@ object ScrollUtil {
         return value
     }
 
-    fun getArguments(input: String): List<String> {
-        val pattern = Pattern.compile("<(.*?):(.*)>")
-        val matcher = pattern.matcher(input)
-
-        return if (matcher.matches()) {
-            matcher.group(2).split(":").map { it.removePrefix("'").removeSuffix("'") }
-        } else {
-            emptyList()
-        }
+    fun getCharacterAfterNew(string: String, currentIndex: Int): Char? {
+        val index = currentIndex + 1
+        val value = if (index >= string.toMutableList().size) null else string[index]
+        return value
     }
 
+    fun getArguments(input: String): List<String> {
+        val split = mutableListOf<String>()
+
+        var current = ""
+        var isInsideQuotes = false
+
+        val validQuotesEndChars = listOf<Char>('>', ':')
+
+        input.forEachIndexed { index, char ->
+            val nextChar = getCharacterAfterNew(input, index)
+
+            if(char == '\'') {
+                if(!isInsideQuotes) {
+                    isInsideQuotes = true
+                }
+                else if(validQuotesEndChars.contains(nextChar)) {
+                    isInsideQuotes = false
+                } else {
+                    current += char
+                }
+            } else if(char == ':') {
+                if(!isInsideQuotes) {
+                    split.add(current)
+                    current = ""
+                } else {
+                    current += char
+                }
+            } else {
+                current += char
+            }
+        }
+
+        if(current.endsWith(">")) {
+            split.add((if(!isInsideQuotes) current else current.removePrefix("<")).removeSuffix(">"))
+            current = ""
+        }
+
+        return split.subList(1, split.size)
+    }
 }

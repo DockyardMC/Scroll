@@ -64,13 +64,14 @@ open class Component(
         }
     }
 
-    fun resetFormatting(includingFont: Boolean = true) {
+    fun resetFormatting(includingFont: Boolean) {
         this.color = null
         this.strikethrough = null
         this.underlined = null
         this.font = null
         this.italic = null
         this.bold = null
+
         if(includingFont) {
             this.font = null
             this.hoverEvent = null

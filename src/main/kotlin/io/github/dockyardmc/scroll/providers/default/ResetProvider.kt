@@ -7,6 +7,6 @@ import io.github.dockyardmc.scroll.providers.NamedFormatProvider
 class ResetProvider: NamedFormatProvider("reset", listOf("r")) {
 
     override fun format(context: FormatProviderContext, component: Component) {
-        component.resetFormatting()
+        component.resetFormatting(true)
     }
 }

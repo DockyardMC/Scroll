@@ -1,6 +1,7 @@
 import io.github.dockyardmc.scroll.*
 import io.github.dockyardmc.scroll.extensions.scrollSanitized
 import io.github.dockyardmc.scroll.extensions.toComponent
+import kotlin.math.exp
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -14,6 +15,16 @@ class StringSerializationTests {
         ))
 
         assertEquals(expected.toJson(), Scroll.parse(input).toJson())
+    }
+
+    @Test
+    fun testFontResettingColor() {
+        val input = "<#ff54aa><font:ranyth>testing testing <r>testing2"
+        val expected = Component.compound(mutableListOf(
+            Component(text = "testing testing ", color = "#ff54aa", font = "ranyth"),
+            Component(text = "testing2")
+        ))
+        assertEquals(expected.toJson(), input.toComponent().toJson())
     }
 
     @Test
@@ -136,6 +147,22 @@ class StringSerializationTests {
         ))
 
         assertEquals(expected.toJson(), Scroll.parse(input).toJson())
+    }
+
+    @Test
+    fun testClickWithLink() {
+        val input = "<click:open_url:'https://lukynka.cloud'><aqua><underline>https://lukynka.cloud"
+
+        val expected = Component.compound(mutableListOf(
+            Component(
+                text = "https://lukynka.cloud",
+                clickEvent = ClickEvent(ClickAction.OPEN_URL, "https://lukynka.cloud"),
+                color = "#55FFFF",
+                underlined = true
+            ),
+        ))
+
+        assertEquals(expected.toJson(), input.toComponent().toJson())
     }
 
 //    @Test

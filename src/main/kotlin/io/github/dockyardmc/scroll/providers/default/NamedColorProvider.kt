@@ -10,7 +10,7 @@ class NamedColorProvider :
     ClosingNamedFormatProvider("red", ScrollUtil.colorTags.keys.toList().map { it.replaceMultiple(listOf("<", ">"), "") }) {
 
     override fun formatNormal(context: FormatProviderContext, component: Component) {
-        component.resetFormatting()
+        component.resetFormatting(false)
         val color = ScrollUtil.colorTags[context.token] ?: throw IllegalStateException("Invalid legacy text color: ${context.token}")
         component.color = color
     }
