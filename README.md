@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.dockyardmc:scroll:1.9")
+    implementation("io.github.dockyardmc:scroll:2.3")
 }
 ```
 <img src="https://github.com/LukynkaCZE/PrettyLog/assets/48604271/3293feca-7395-4100-8b61-257ba40dbe3c" width="18px"></img>
@@ -36,7 +36,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'io.github.dockyardmc:scroll:1.9'
+  implementation 'io.github.dockyardmc:scroll:2.3'
 }
 ```
 ---
@@ -110,16 +110,16 @@ The following tags are valid:
   - `<underline>`
   - `<strikethrough>`
 - Events
-  - `<hover|'text''>` for hover-able text. Formatting applies to inner text as well
-  - `<click|action|'text'>` for clickable text. Actions are following
+  - `<hover:'text''>` for hover-able text. Formatting applies to inner text as well
+  - `<click:action:'text'>` for clickable text. Actions are following
     - `open_url` - following text needs to start with "https://"
     - `run_command` - following text needs to start with "/"
     - `suggest_command` - following text needs to start with "/"
     - `copy_to_clipboard`
 - Other
-  - `<font|'file_name'>` to change font
+  - `<font:'file_name'>` to change font
   - `<rainbow>` to make the text after rainbow. (Resets when another color is applied or when <reset> is reached)
-  - `<transition|#hex1|#hex2|step>` - Color Interpolation, step is float between 0 and 1
+  - `<transition:#hex1:#hex2:step>` - Color Interpolation, step is float between 0 and 1
   - `<reset>` to reset formatting
 
 In some cases (format and reset) you can use shortened versions

@@ -1,9 +1,19 @@
+import io.github.dockyardmc.scroll.Component
 import io.github.dockyardmc.scroll.serializers.JsonToComponentSerializer
 import io.github.dockyardmc.scroll.extensions.toComponent
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class JsonSerializationTests {
+
+    @Test
+    fun testWrongOrder() {
+        val input = "{\"color\":\"#FFAA00\",\"text\":\"Analysis is now complete.\"}"
+        val component = JsonToComponentSerializer.serialize(input)
+        val expected = "<gold>Analysis is now complete."
+
+        assertEquals(expected.toComponent().toJson(), Component.compound(mutableListOf(component)).toJson())
+    }
 
     @Test
     fun testComponentToJson() {

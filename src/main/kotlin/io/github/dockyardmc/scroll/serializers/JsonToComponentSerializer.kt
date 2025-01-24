@@ -7,6 +7,11 @@ import kotlinx.serialization.json.decodeFromJsonElement
 object JsonToComponentSerializer {
 
     fun serialize(json: String): Component {
-        return Json.decodeFromJsonElement(Json.parseToJsonElement(json))
+        val serializer = Json {
+            ignoreUnknownKeys = true
+            isLenient = true
+        }
+
+        return Json.decodeFromJsonElement(serializer.parseToJsonElement(json))
     }
 }
