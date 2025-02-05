@@ -14,7 +14,7 @@ open class Component(
     var translate: String? = null,
     var color: String? = null,
     @SerialName("shadow_color")
-    var shadowColor: String? = null,
+    var shadowColor: List<Int>? = null,
     var bold: Boolean? = null,
     var italic: Boolean? = null,
     var underlined: Boolean? = null,

@@ -9,4 +9,9 @@ data class FormatProviderContext(val token: String, val textUntilNextTag: String
         val arguments = ScrollUtil.getArguments(token)
         return arguments.getOrNull(index) ?: throw IndexOutOfBoundsException("Index $index is out of bounds for ${arguments.size} arguments")
     }
+
+    fun getArgumentOrNull(index: Int): String? {
+        val arguments = ScrollUtil.getArguments(token)
+        return arguments.getOrNull(index)
+    }
 }

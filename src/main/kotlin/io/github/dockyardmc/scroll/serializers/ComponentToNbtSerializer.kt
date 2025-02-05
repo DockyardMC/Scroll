@@ -4,6 +4,7 @@ import io.github.dockyardmc.scroll.Component
 import io.github.dockyardmc.scroll.extensions.put
 import org.jglrxavpok.hephaistos.nbt.NBT
 import org.jglrxavpok.hephaistos.nbt.NBTCompound
+import org.jglrxavpok.hephaistos.nbt.NBTIntArray
 import org.jglrxavpok.hephaistos.nbt.mutable.MutableNBTCompound
 
 object ComponentToNbtSerializer {
@@ -11,7 +12,12 @@ object ComponentToNbtSerializer {
         val nbtWriter = MutableNBTCompound()
 
         nbtWriter.put("color", c.color)
-        nbtWriter.put("shadow_color", c.shadowColor)
+        if(c.shadowColor != null) {
+            val list = listOf(1, 2, 3)
+            val array = NBTIntArray(*c.shadowColor!!.toIntArray())
+            nbtWriter.put("shadow_color", array)
+
+        }
         nbtWriter.put("bold", c.bold)
         nbtWriter.put("font", c.font)
         nbtWriter.put("italic", c.italic)

@@ -90,7 +90,7 @@ class NbtSerializationTests {
             },
             NBT.Compound {
                 it.put("color", "#ff54aa")
-                it.put("shadow_color", "#ba70ff")
+                it.put("shadow_color", NBT.IntArray(186, 112, 255, 255))
                 it.put("text", "AsoDesu_ ")
             },
             NBT.Compound {

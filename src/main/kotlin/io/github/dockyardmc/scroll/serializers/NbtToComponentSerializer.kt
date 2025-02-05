@@ -12,6 +12,7 @@ object NbtToComponentSerializer {
 
         component.color = nbt.getString("color")
         component.color = nbt.getString("shadow_color")
+        component.shadowColor = nbt.getIntArray("shadow_color")?.toList()
         component.bold = nbt.getBoolean("bold")
         component.font = nbt.getString("font")
         component.italic = nbt.getBoolean("italic")

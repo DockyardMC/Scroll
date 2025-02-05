@@ -11,7 +11,10 @@ object KyoriToScrollSerializer {
     fun serializeComponent(kyori: net.kyori.adventure.text.Component): Component {
         val component = Component()
         component.color = kyori.color()?.asHexString()
-        component.shadowColor = kyori.shadowColor()?.asHexString()
+        if(kyori.shadowColor() != null) {
+            val color = CustomColor.fromHex(kyori.shadowColor()!!.asHexString())
+            component.shadowColor = listOf(color.r, color.g, color.b, kyori.shadowColor()!!.alpha())
+        }
         component.bold = kyori.getTextDecoration(TextDecoration.BOLD)
         component.italic = kyori.getTextDecoration(TextDecoration.ITALIC)
         component.obfuscated = kyori.getTextDecoration(TextDecoration.OBFUSCATED)
