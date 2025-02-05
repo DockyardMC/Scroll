@@ -13,7 +13,7 @@ object KyoriToScrollSerializer {
         component.color = kyori.color()?.asHexString()
         if(kyori.shadowColor() != null) {
             val color = CustomColor.fromHex(kyori.shadowColor()!!.asHexString())
-            component.shadowColor = listOf(color.r, color.g, color.b, kyori.shadowColor()!!.alpha())
+            component.shadowColor = listOf(color.r.toDouble(), color.g.toDouble(), color.b.toDouble(), kyori.shadowColor()!!.alpha().toDouble())
         }
         component.bold = kyori.getTextDecoration(TextDecoration.BOLD)
         component.italic = kyori.getTextDecoration(TextDecoration.ITALIC)

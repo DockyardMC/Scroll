@@ -9,8 +9,8 @@ class ShadowColorProvider: ClosingNamedFormatProvider("shadow", listOf()) {
 
     override fun formatNormal(context: FormatProviderContext, component: Component) {
         val shadowColor = CustomColor.fromHex(context.getArgument(0))
-        val alpha = context.getArgumentOrNull(1)?.toInt() ?: 255
-        component.shadowColor = listOf(shadowColor.r, shadowColor.g, shadowColor.b, alpha)
+        val alpha = context.getArgumentOrNull(1)?.toInt() ?: 255.0
+        component.shadowColor = listOf(shadowColor.r.toDouble(), shadowColor.g.toDouble(), shadowColor.b.toDouble(), alpha.toDouble())
     }
 
     override fun formatClosing(context: FormatProviderContext, component: Component) {

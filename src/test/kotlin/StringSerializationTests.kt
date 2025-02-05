@@ -203,7 +203,7 @@ class StringSerializationTests {
     fun testShadowColor() {
         val input = "<shadow:#3474eb><#eb3434>Hello!"
         val expected = Component.compound(mutableListOf(
-            Component(text = "Hello!", shadowColor = listOf(52, 116, 235, 255), color = "#eb3434")
+            Component(text = "Hello!", shadowColor = listOf<Double>(52.0 / 255.0, 116.0 / 255, 235.0 / 255, 255.0 / 255), color = "#eb3434")
         ))
         assertEquals(expected.toJson(), input.toComponent().toJson())
     }

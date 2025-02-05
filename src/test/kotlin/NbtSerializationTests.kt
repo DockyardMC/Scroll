@@ -2,6 +2,8 @@ import io.github.dockyardmc.scroll.ScrollUtil
 import io.github.dockyardmc.scroll.extensions.put
 import io.github.dockyardmc.scroll.extensions.toComponent
 import org.jglrxavpok.hephaistos.nbt.NBT
+import org.jglrxavpok.hephaistos.nbt.NBTDouble
+import org.jglrxavpok.hephaistos.nbt.NBTType
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -90,7 +92,7 @@ class NbtSerializationTests {
             },
             NBT.Compound {
                 it.put("color", "#ff54aa")
-                it.put("shadow_color", NBT.IntArray(186, 112, 255, 255))
+                it.put("shadow_color", NBT.List(NBTType.TAG_Double, listOf(186, 112, 255, 255).map { value -> NBTDouble(value / 255.0) }))
                 it.put("text", "AsoDesu_ ")
             },
             NBT.Compound {
