@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "io.github.dockyardmc"
-version = "2.3"
+version = "2.4"
 
 repositories {
     mavenCentral()
@@ -19,11 +19,14 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    testImplementation("net.kyori:adventure-api:4.18.0")
+    testImplementation("net.kyori:adventure-text-minimessage:4.18.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("io.github.jglrxavpok.hephaistos:common:2.2.0")
     implementation("io.github.jglrxavpok.hephaistos:gson:2.2.0")
+    compileOnly("net.kyori:adventure-api:4.18.0")
 }
 
 tasks.withType<Test> {

@@ -12,7 +12,7 @@ class HexColorProvider: FormatProvider() {
     }
 
     override fun format(context: FormatProviderContext, component: Component) {
-        component.resetFormatting(false)
+        component.resetFormatting(includingFont = false, ignoreShadow = true)
         component.color = context.token.replaceMultiple(listOf("<", ">"), "")
     }
 }

@@ -1,24 +1,13 @@
 package io.github.dockyardmc.scroll
 
 import io.github.dockyardmc.scroll.providers.FormatProvider
-import io.github.dockyardmc.scroll.providers.default.BoldProvider
-import io.github.dockyardmc.scroll.providers.default.ClickEventProvider
-import io.github.dockyardmc.scroll.providers.default.FontProvider
-import io.github.dockyardmc.scroll.providers.default.HexColorProvider
-import io.github.dockyardmc.scroll.providers.default.HoverEventProvider
-import io.github.dockyardmc.scroll.providers.default.ItalicsProvider
-import io.github.dockyardmc.scroll.providers.default.KeybindProvider
-import io.github.dockyardmc.scroll.providers.default.NamedColorProvider
-import io.github.dockyardmc.scroll.providers.default.ObfuscatedProvider
-import io.github.dockyardmc.scroll.providers.default.ResetProvider
-import io.github.dockyardmc.scroll.providers.default.StrikethroughProvider
-import io.github.dockyardmc.scroll.providers.default.TranslateProvider
-import io.github.dockyardmc.scroll.providers.default.UnderlinedProvider
+import io.github.dockyardmc.scroll.providers.default.*
 
 object Scroll {
 
     val defaultFormatProviders = listOf<FormatProvider>(
         HexColorProvider(),
+        ShadowColorProvider(),
         BoldProvider(),
         ItalicsProvider(),
         UnderlinedProvider(),
@@ -30,7 +19,7 @@ object Scroll {
         TranslateProvider(),
         KeybindProvider(),
         ClickEventProvider(),
-        HoverEventProvider()
+        HoverEventProvider(),
     )
 
     private val defaultParser = ScrollParser(defaultFormatProviders)

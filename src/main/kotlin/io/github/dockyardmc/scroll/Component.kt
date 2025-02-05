@@ -2,25 +2,28 @@ package io.github.dockyardmc.scroll
 
 import io.github.dockyardmc.scroll.serializers.ComponentToJsonSerializer
 import io.github.dockyardmc.scroll.serializers.ComponentToNbtSerializer
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.jglrxavpok.hephaistos.nbt.NBTCompound
 
 @Serializable
 open class Component(
-    open var extra: MutableList<Component>? = null,
-    open var keybind: String? = null,
-    open var text: String? = null,
-    open var translate: String? = null,
-    open var color: String? = null,
-    open var bold: Boolean? = null,
-    open var italic: Boolean? = null,
-    open var underlined: Boolean? = null,
-    open var strikethrough: Boolean? = null,
-    open var obfuscated: Boolean? = null,
-    open var font: String? = null,
-    open var insertion: String? = null,
-    open var hoverEvent: HoverEvent? = null,
-    open var clickEvent: ClickEvent? = null
+    var extra: MutableList<Component>? = null,
+    var keybind: String? = null,
+    var text: String? = null,
+    var translate: String? = null,
+    var color: String? = null,
+    @SerialName("shadow_color")
+    var shadowColor: String? = null,
+    var bold: Boolean? = null,
+    var italic: Boolean? = null,
+    var underlined: Boolean? = null,
+    var strikethrough: Boolean? = null,
+    var obfuscated: Boolean? = null,
+    var font: String? = null,
+    var insertion: String? = null,
+    var hoverEvent: HoverEvent? = null,
+    var clickEvent: ClickEvent? = null
 ) {
     companion object {
         fun compound(components: MutableList<Component>): Component {
@@ -64,8 +67,9 @@ open class Component(
         }
     }
 
-    fun resetFormatting(includingFont: Boolean) {
+    fun resetFormatting(includingFont: Boolean, ignoreShadow: Boolean = false) {
         this.color = null
+        if(!ignoreShadow) this.shadowColor = null
         this.strikethrough = null
         this.underlined = null
         this.font = null

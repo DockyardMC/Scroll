@@ -200,6 +200,15 @@ class StringSerializationTests {
     }
 
     @Test
+    fun testShadowColor() {
+        val input = "<shadow:#3474eb><#eb3434>Hello!"
+        val expected = Component.compound(mutableListOf(
+            Component(text = "Hello!", shadowColor = "#3474eb", color = "#eb3434")
+        ))
+        assertEquals(expected.toJson(), input.toComponent().toJson())
+    }
+
+    @Test
     fun testScrollSanitization() {
         val input = "Player123: Did you know you can type in <red>red and <bold>bold</bold><yellow> and <rainbow>rainboooowww"
         val expected = Component.compound(mutableListOf(

@@ -11,6 +11,7 @@ object ComponentToNbtSerializer {
         val nbtWriter = MutableNBTCompound()
 
         nbtWriter.put("color", c.color)
+        nbtWriter.put("shadow_color", c.shadowColor)
         nbtWriter.put("bold", c.bold)
         nbtWriter.put("font", c.font)
         nbtWriter.put("italic", c.italic)

@@ -56,6 +56,7 @@ data class ScrollParser(val formatProviders: Collection<FormatProvider>) {
             }
 
             currentComponent.color = styleComponent.color
+            currentComponent.shadowColor = styleComponent.shadowColor
             currentComponent.bold = styleComponent.bold
             currentComponent.italic = styleComponent.italic
             currentComponent.underlined = styleComponent.underlined
@@ -64,7 +65,6 @@ data class ScrollParser(val formatProviders: Collection<FormatProvider>) {
             currentComponent.strikethrough = styleComponent.strikethrough
             currentComponent.clickEvent = styleComponent.clickEvent
             currentComponent.hoverEvent = styleComponent.hoverEvent
-
 
             components.add(currentComponent)
         }

@@ -82,11 +82,16 @@ class NbtSerializationTests {
 
     @Test
     fun testStringToNbt() {
-        val input = "<#ff54aa>omg haiiii bestie AsoDesu_ <pink><b>:3<r> <keybind:key.jump> to jump. <translate:advMode.mode> should be advMode.mode"
+        val input = "<#ff54aa>omg haiiii bestie <shadow:#ba70ff>AsoDesu_ </shadow><pink><b>:3<r> <keybind:key.jump> to jump. <translate:advMode.mode> should be advMode.mode"
         val expected = mutableListOf(
             NBT.Compound {
-                it.put("text", "omg haiiii bestie AsoDesu_ ")
+                it.put("text", "omg haiiii bestie ")
                 it.put("color", "#ff54aa")
+            },
+            NBT.Compound {
+                it.put("color", "#ff54aa")
+                it.put("shadow_color", "#ba70ff")
+                it.put("text", "AsoDesu_ ")
             },
             NBT.Compound {
                 it.put("color", ScrollUtil.colorTags["<pink>"])

@@ -11,6 +11,7 @@ object NbtToComponentSerializer {
         val component = Component()
 
         component.color = nbt.getString("color")
+        component.color = nbt.getString("shadow_color")
         component.bold = nbt.getBoolean("bold")
         component.font = nbt.getString("font")
         component.italic = nbt.getBoolean("italic")

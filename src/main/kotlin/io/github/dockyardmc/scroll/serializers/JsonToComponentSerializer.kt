@@ -1,8 +1,12 @@
 package io.github.dockyardmc.scroll.serializers
 
+import io.github.dockyardmc.scroll.ClickEvent
 import io.github.dockyardmc.scroll.Component
+import io.github.dockyardmc.scroll.HoverEvent
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromJsonElement
+import javax.lang.model.type.UnionType
 
 object JsonToComponentSerializer {
 
@@ -12,6 +16,8 @@ object JsonToComponentSerializer {
             isLenient = true
         }
 
-        return Json.decodeFromJsonElement(serializer.parseToJsonElement(json))
+//        return Json.decodeFromJsonElement(serializer.parseToJsonElement(json))
+        return Json.decodeFromString<Component>(json)
+
     }
 }

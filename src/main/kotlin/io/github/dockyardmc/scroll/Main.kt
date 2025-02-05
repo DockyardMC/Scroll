@@ -1,5 +1,8 @@
 package io.github.dockyardmc.scroll
 
+import io.github.dockyardmc.scroll.serializers.JsonToComponentSerializer
+
 fun main() {
-    println("Args: ${ScrollUtil.getArguments("<hover:show_text:'<red><bold><i>bucket o' fish'>")}")
+    val json = JsonToComponentSerializer.serialize("{\"color\":\"gray\",\"extra\":[{\"color\":\"white\",\"text\":\">\"},\" \",\"Max: \",\"53.19\",\"ms\"],\"text\":\"\"}")
+    println(json.toJson())
 }
