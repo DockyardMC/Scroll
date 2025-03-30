@@ -1,13 +1,16 @@
-[![wakatime](https://wakatime.com/badge/github/DockyardMC/Scroll.svg)](https://wakatime.com/badge/github/DockyardMC/Scroll)
-
-# Scroll 📜
-A Minecraft Component library made for the [DockyardMC](https://github.com/DockyardMC/Dockyard) project
-
-`<yellow>A Minecraft <rainbow><u>Component Library<yellow> for the <#3d91ff><bold>DockyardMC<yellow> project!`
-
-![obrazek](https://github.com/DockyardMC/Scroll/assets/48604271/304281ed-f72b-4036-9c66-69d929fe5644)
+![Scroll Banner](https://github.com/user-attachments/assets/77ca5f70-0ad0-48a9-9542-4c0bdc976a16)
 
 ---
+
+[![Maven metadata URL](https://img.shields.io/maven-metadata/v?metadataUrl=https%3A%2F%2Fmvn.devos.one%2Freleases%2Fio%2Fgithub%2Fdockyardmc%2Fscroll%2Fmaven-metadata.xml&style=for-the-badge&logo=maven&logoColor=%23FFFFFF&label=Latest%20Version&color=%23afff87)](https://mvn.devos.one/#/releases/io/github/dockyardmc/dockyard)
+[![Static Badge](https://img.shields.io/badge/Language-Kotlin-Kotlin?style=for-the-badge&color=%23963cf4)](https://kotlinlang.org/)
+
+[![wakatime](https://wakatime.com/badge/github/DockyardMC/Scroll.svg?style=for-the-badge)](https://wakatime.com/badge/github/DockyardMC/Scroll)
+[![Discord](https://img.shields.io/discord/1242845647892123650?label=Discord%20Server&color=%237289DA&style=for-the-badge&logo=discord&logoColor=%23FFFFFF)](https://discord.gg/SA9nmfMkdc)
+[![Static Badge](https://img.shields.io/badge/Donate-Ko--Fi-pink?style=for-the-badge&logo=ko-fi&logoColor=%23FFFFFF&color=%23ff70c8)](https://ko-fi.com/LukynkaCZE)
+
+
+A Minecraft Component library made for the [DockyardMC](https://github.com/DockyardMC/Dockyard) project. It includes easy to use and learn format to represent text components as strings, similiar to minimessage
 
 ## Installation
 
