@@ -1,3 +1,4 @@
+import io.github.dockyardmc.scroll.ClickEvent
 import io.github.dockyardmc.scroll.Component
 import io.github.dockyardmc.scroll.serializers.JsonToComponentSerializer
 import io.github.dockyardmc.scroll.extensions.toComponent
@@ -17,17 +18,29 @@ class JsonSerializationTests {
 
     @Test
     fun testComponentToJson() {
-        val input = "<yellow>Osmanthus wine tastes <i>the same as <orange><bold>I remember<gray><i>... <yellow>But where are those who share <aqua><bold><u>the memory"
-        val expected = "{\"extra\":[{\"text\":\"Osmanthus wine tastes \",\"color\":\"#FFFF55\"},{\"text\":\"the same as \",\"color\":\"#FFFF55\",\"italic\":true},{\"text\":\"I remember\",\"color\":\"#FFAA00\",\"bold\":true},{\"text\":\"... \",\"color\":\"#AAAAAA\",\"italic\":true},{\"text\":\"But where are those who share \",\"color\":\"#FFFF55\"},{\"text\":\"the memory\",\"color\":\"#55FFFF\",\"bold\":true,\"underlined\":true}],\"text\":\"\"}"
+        val input =
+            "<yellow>Osmanthus wine tastes <i>the same as <orange><bold>I remember<gray><i>... <yellow>But where are those who share <aqua><bold><u>the memory"
+        val expected =
+            "{\"extra\":[{\"text\":\"Osmanthus wine tastes \",\"color\":\"#FFFF55\"},{\"text\":\"the same as \",\"color\":\"#FFFF55\",\"italic\":true},{\"text\":\"I remember\",\"color\":\"#FFAA00\",\"bold\":true},{\"text\":\"... \",\"color\":\"#AAAAAA\",\"italic\":true},{\"text\":\"But where are those who share \",\"color\":\"#FFFF55\"},{\"text\":\"the memory\",\"color\":\"#55FFFF\",\"bold\":true,\"underlined\":true}],\"text\":\"\"}"
 
         assertEquals(expected, input.toComponent().toJson())
     }
 
     @Test
     fun testJsonToComponent() {
-        val input = "{\"extra\":[{\"text\":\"Osmanthus wine tastes \",\"color\":\"#FFFF55\"},{\"text\":\"the same as \",\"color\":\"#FFFF55\",\"italic\":true},{\"text\":\"I remember\",\"color\":\"#FFAA00\",\"bold\":true},{\"text\":\"... \",\"color\":\"#AAAAAA\",\"italic\":true},{\"text\":\"But where are those who share \",\"color\":\"#FFFF55\"},{\"text\":\"the memory\",\"color\":\"#55FFFF\",\"bold\":true,\"underlined\":true}],\"text\":\"\"}"
-        val expected = "<yellow>Osmanthus wine tastes <i>the same as <orange><bold>I remember<gray><i>... <yellow>But where are those who share <aqua><bold><u>the memory"
+        val input =
+            "{\"extra\":[{\"text\":\"Osmanthus wine tastes \",\"color\":\"#FFFF55\"},{\"text\":\"the same as \",\"color\":\"#FFFF55\",\"italic\":true},{\"text\":\"I remember\",\"color\":\"#FFAA00\",\"bold\":true},{\"text\":\"... \",\"color\":\"#AAAAAA\",\"italic\":true},{\"text\":\"But where are those who share \",\"color\":\"#FFFF55\"},{\"text\":\"the memory\",\"color\":\"#55FFFF\",\"bold\":true,\"underlined\":true}],\"text\":\"\"}"
+        val expected =
+            "<yellow>Osmanthus wine tastes <i>the same as <orange><bold>I remember<gray><i>... <yellow>But where are those who share <aqua><bold><u>the memory"
 
         assertEquals(expected.toComponent().toJson(), JsonToComponentSerializer.serialize(input).toJson())
+    }
+
+    @Test
+    fun testClickEvent() {
+        val input = Component(text = "", clickEvent = ClickEvent.ShowDialog("my_dialog"))
+        val expected = """{"text":"","click_event":{"action":"show_dialog","dialog":"my_dialog"}}"""
+
+        assertEquals(input.toJson(), expected)
     }
 }

@@ -2,7 +2,10 @@ package io.github.dockyardmc.scroll.serializers
 
 import io.github.dockyardmc.scroll.Component
 import io.github.dockyardmc.scroll.extensions.put
-import org.jglrxavpok.hephaistos.nbt.*
+import org.jglrxavpok.hephaistos.nbt.NBT
+import org.jglrxavpok.hephaistos.nbt.NBTCompound
+import org.jglrxavpok.hephaistos.nbt.NBTDouble
+import org.jglrxavpok.hephaistos.nbt.NBTType
 import org.jglrxavpok.hephaistos.nbt.mutable.MutableNBTCompound
 
 object ComponentToNbtSerializer {
@@ -28,7 +31,7 @@ object ComponentToNbtSerializer {
 
         val hover = c.hoverEvent
         if(hover != null) {
-            nbtWriter.put("hoverEvent", NBT.Compound { hoverWriter ->
+            nbtWriter.put("hover_event", NBT.Compound { hoverWriter ->
                 hoverWriter.put("action", hover.action.name.lowercase())
                 hoverWriter.put("contents", serializeComponent(hover.contents!!))
             })
@@ -36,10 +39,7 @@ object ComponentToNbtSerializer {
 
         val click = c.clickEvent
         if(click != null) {
-            nbtWriter.put("clickEvent", NBT.Compound { clickWriter ->
-                clickWriter.put("action", click.action.name.lowercase())
-                clickWriter.put("value", click.value!!)
-            })
+            nbtWriter.put("click_event", click.getNbt())
         }
 
         val list = c.extra

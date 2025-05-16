@@ -4,6 +4,7 @@ import io.github.dockyardmc.scroll.*
 import net.kyori.adventure.text.KeybindComponent
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.text.TranslatableComponent
+import net.kyori.adventure.text.event.ClickEvent.Action
 import net.kyori.adventure.text.format.TextDecoration
 
 object KyoriToScrollSerializer {
@@ -36,9 +37,15 @@ object KyoriToScrollSerializer {
     }
 
     private fun net.kyori.adventure.text.event.ClickEvent.toScroll(): ClickEvent {
-        val action = ClickAction.entries[this.action().ordinal]
-        val value = this.value()
-        return ClickEvent(action, value)
+        return when (this.action()) {
+            Action.OPEN_URL -> ClickEvent.OpenUrl(this.value())
+            Action.OPEN_FILE -> ClickEvent.OpenFile(this.value())
+            Action.RUN_COMMAND -> ClickEvent.RunCommand(this.value())
+            Action.SUGGEST_COMMAND -> ClickEvent.SuggestCommand(this.value())
+            Action.CHANGE_PAGE -> ClickEvent.ChangePage(this.value().toInt())
+            Action.COPY_TO_CLIPBOARD -> ClickEvent.CopyToClipboard(this.value())
+        }
+        // kyori doesn't support other ones yet.
     }
 
     private fun net.kyori.adventure.text.event.HoverEvent<*>.toScroll(): HoverEvent? {

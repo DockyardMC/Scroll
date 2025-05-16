@@ -22,7 +22,9 @@ open class Component(
     var obfuscated: Boolean? = null,
     var font: String? = null,
     var insertion: String? = null,
+    @SerialName("hover_event")
     var hoverEvent: HoverEvent? = null,
+    @SerialName("click_event")
     var clickEvent: ClickEvent? = null
 ) {
     companion object {

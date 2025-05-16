@@ -25,7 +25,7 @@ object NbtToComponentSerializer {
         component.translate = nbt.getString("translate")
         component.underlined = nbt.getBoolean("underlined")
 
-        val hover = nbt.getCompound("hoverEvent")
+        val hover = nbt.getCompound("hover_event")
         if (hover != null) {
             val action = hover.getString("action")!!
             val content = hover.getCompound("contents")!!
@@ -33,12 +33,9 @@ object NbtToComponentSerializer {
             component.hoverEvent = HoverEvent(HoverAction.valueOf(action.uppercase()), serializeNbt(content))
         }
 
-        val click = nbt.getCompound("clickEvent")
+        val click = nbt.getCompound("click_event")
         if (click != null) {
-            val action = click.getString("action")!!
-            val value = click.getString("value")!!
-
-            component.clickEvent = ClickEvent(ClickAction.valueOf(action.uppercase()), value)
+            component.clickEvent = ClickEvent.fromNbt(click)
         }
 
         val list = nbt.getList<NBT>("extra")
