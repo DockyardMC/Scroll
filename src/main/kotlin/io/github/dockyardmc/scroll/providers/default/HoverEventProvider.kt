@@ -1,20 +1,21 @@
 package io.github.dockyardmc.scroll.providers.default
 
 import io.github.dockyardmc.scroll.Component
-import io.github.dockyardmc.scroll.HoverAction
 import io.github.dockyardmc.scroll.HoverEvent
-import io.github.dockyardmc.scroll.Scroll
+import io.github.dockyardmc.scroll.extensions.toComponent
 import io.github.dockyardmc.scroll.providers.ClosingNamedFormatProvider
 import io.github.dockyardmc.scroll.providers.FormatProviderContext
 
 class HoverEventProvider: ClosingNamedFormatProvider("hover", listOf()) {
 
     override fun formatNormal(context: FormatProviderContext, component: Component) {
-        val action = HoverAction.valueOf(context.getArgument(0).uppercase())
-        val value = Scroll.parse(context.getArgument(1))
-        val hoverEvent = HoverEvent(action, value)
+        component.hoverEvent = when (context.getArgument(0)) {
+            "show_text" -> HoverEvent.ShowText(context.getArgument(1).toComponent())
+            "show_item" -> HoverEvent.ShowItem(context.getArgument(1), context.getArgumentOrNull(2)?.toIntOrNull() ?: 1)
+            "show_entity" -> HoverEvent.ShowEntity(context.getArgument(1), context.getArgument(2), context.getArgumentOrNull(3)?.toComponent())
 
-        component.hoverEvent = hoverEvent
+            else -> return
+        }
     }
 
     override fun formatClosing(context: FormatProviderContext, component: Component) {

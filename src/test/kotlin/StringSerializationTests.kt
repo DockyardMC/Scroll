@@ -141,7 +141,7 @@ class StringSerializationTests {
     fun testHover() {
         val input = "<hover:show_text:'<red><bold><i>bucket o' fish'>hover over meeeee <r>do not hover over me"
         val expected = Component.compound(mutableListOf(
-            Component(text = "hover over meeeee ", hoverEvent = HoverEvent(HoverAction.SHOW_TEXT, "<red><bold><i>bucket o' fish".toComponent())),
+            Component(text = "hover over meeeee ", hoverEvent = HoverEvent.ShowText("<red><bold><i>bucket o' fish".toComponent())),
             Component(text = "do not hover over me")
         ))
 

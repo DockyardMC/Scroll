@@ -27,10 +27,7 @@ object NbtToComponentSerializer {
 
         val hover = nbt.getCompound("hover_event")
         if (hover != null) {
-            val action = hover.getString("action")!!
-            val content = hover.getCompound("contents")!!
-
-            component.hoverEvent = HoverEvent(HoverAction.valueOf(action.uppercase()), serializeNbt(content))
+            component.hoverEvent = HoverEvent.fromNbt(hover)
         }
 
         val click = nbt.getCompound("click_event")

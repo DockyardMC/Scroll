@@ -152,6 +152,3 @@ sealed class ClickEvent {
         }
     }
 }
-
-class MissingFieldException(field: String) :
-    RuntimeException("failed to parse: field `$field` is missing")

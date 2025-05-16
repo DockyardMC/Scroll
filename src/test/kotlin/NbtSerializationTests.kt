@@ -15,7 +15,7 @@ class NbtSerializationTests {
         val nbt = NBT.Compound {
             it.put("hover_event", NBT.Compound { hover ->
                 hover.put("action", "show_text")
-                hover.put("contents", NBT.Compound { hoverIn ->
+                hover.put("value", NBT.Compound { hoverIn ->
                     hoverIn.put("extra", NBT.Compound {
                         it.put("extra", NBT.Compound { extrahover ->
                             extrahover.put("text", "Click to open the store URL")

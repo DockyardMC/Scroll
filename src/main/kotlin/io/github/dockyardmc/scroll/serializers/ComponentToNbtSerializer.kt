@@ -31,10 +31,7 @@ object ComponentToNbtSerializer {
 
         val hover = c.hoverEvent
         if(hover != null) {
-            nbtWriter.put("hover_event", NBT.Compound { hoverWriter ->
-                hoverWriter.put("action", hover.action.name.lowercase())
-                hoverWriter.put("contents", serializeComponent(hover.contents!!))
-            })
+            nbtWriter.put("hover_event", hover.getNbt())
         }
 
         val click = c.clickEvent
