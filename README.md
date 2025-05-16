@@ -113,17 +113,27 @@ The following tags are valid:
   - `<underline>`
   - `<strikethrough>`
 - Events
-  - `<hover:'text''>` for hover-able text. Formatting applies to inner text as well
+  - `<hover:action:'text'>` for hover-able text. Formatting applies to inner text as well. Actions:
+    - `show_text`: 1 text argument
+    - `show_item`: item id and optional item count
+    - `show_entity`: entity type id, entity uuid, and optional name (text component)
+    - *you can skip type, in this case `show_text` will be used as default.* Like this: `<hover:'text'>Hover!`
   - `<click:action:'text'>` for clickable text. Actions are following
     - `open_url` - following text needs to start with "https://"
     - `run_command` - following text needs to start with "/"
     - `suggest_command` - following text needs to start with "/"
     - `copy_to_clipboard`
+    - `show_dialog`
+    - `custom` - send custom click action. two arguments: `id` and `payload`
 - Other
   - `<font:'file_name'>` to change font
-  - `<rainbow>` to make the text after rainbow. (Resets when another color is applied or when <reset> is reached)
   - `<transition:#hex1:#hex2:step>` - Color Interpolation, step is float between 0 and 1
   - `<reset>` to reset formatting
+
+Some tags (like `<click:custom...>`) have multiple arguments. Those are separated by `:`.  
+Like this:
+- `<click:custom:'my_id':'my_payload'>Click for custom click!!!`
+- `<hover:show_item:'minecraft:book':'1'>Hover to see a book (not really)`
 
 In some cases (format and reset) you can use shortened versions
 - `<b>` is short of `<bold>`

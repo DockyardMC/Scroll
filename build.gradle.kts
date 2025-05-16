@@ -5,8 +5,8 @@ import java.net.http.HttpResponse
 
 plugins {
     `maven-publish`
-    kotlin("jvm") version "1.9.22"
-    kotlin("plugin.serialization") version "1.9.23"
+    kotlin("jvm") version "2.1.21"
+    kotlin("plugin.serialization") version "2.1.21"
     application
 }
 
@@ -19,14 +19,18 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
-    testImplementation("net.kyori:adventure-api:4.18.0")
-    testImplementation("net.kyori:adventure-text-minimessage:4.18.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation("io.github.jglrxavpok.hephaistos:common:2.2.0")
-    implementation("io.github.jglrxavpok.hephaistos:gson:2.2.0")
-    compileOnly("net.kyori:adventure-api:4.18.0")
+
+    testImplementation("net.kyori:adventure-api:4.21.0")
+    testImplementation("net.kyori:adventure-text-minimessage:4.21.0")
+    compileOnly("net.kyori:adventure-api:4.21.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
+
+    implementation("com.google.code.gson:gson:2.13.1")
+
+    implementation("io.github.jglrxavpok.hephaistos:common:2.6.1")
+    implementation("io.github.jglrxavpok.hephaistos:gson:2.6.1")
 }
 
 tasks.withType<Test> {

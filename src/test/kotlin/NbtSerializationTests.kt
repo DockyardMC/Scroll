@@ -13,9 +13,9 @@ class NbtSerializationTests {
     @Test
     fun nbtToComponentTest(){
         val nbt = NBT.Compound {
-            it.put("hoverEvent", NBT.Compound { hover ->
+            it.put("hover_event", NBT.Compound { hover ->
                 hover.put("action", "show_text")
-                hover.put("contents", NBT.Compound { hoverIn ->
+                hover.put("value", NBT.Compound { hoverIn ->
                     hoverIn.put("extra", NBT.Compound {
                         it.put("extra", NBT.Compound { extrahover ->
                             extrahover.put("text", "Click to open the store URL")
@@ -28,9 +28,9 @@ class NbtSerializationTests {
             })
             it.put("text", "CLICK HERE")
             it.put("bold", true)
-            it.put("clickEvent", NBT.Compound { click ->
+            it.put("click_event", NBT.Compound { click ->
                 click.put("action", "open_url")
-                click.put("value", "https://store.mccisland.net")
+                click.put("url", "https://store.mccisland.net")
             })
             it.put("underline", true)
             it.put("color", ScrollUtil.colorTags["<lime>"])
@@ -49,7 +49,7 @@ class NbtSerializationTests {
         val input = "<lime><b><u><hover|'<yellow>Click to open the store URL'><click|open_url|https://store.mccisland.net>CLICK HERE"
         val expected = mutableListOf(
             NBT.Compound {
-                it.put("hoverEvent", NBT.Compound { hover ->
+                it.put("hover_event", NBT.Compound { hover ->
                     hover.put("action", "show_text")
                     hover.put("contents", NBT.Compound { hoverIn ->
                         hoverIn.put("extra", NBT.Compound {
@@ -64,9 +64,9 @@ class NbtSerializationTests {
                 })
                 it.put("text", "CLICK HERE")
                 it.put("bold", true)
-                it.put("clickEvent", NBT.Compound { click ->
+                it.put("click_event", NBT.Compound { click ->
                     click.put("action", "open_url")
-                    click.put("value", "https://store.mccisland.net")
+                    click.put("url", "https://store.mccisland.net")
                 })
                 it.put("underline", true)
                 it.put("color", ScrollUtil.colorTags["<lime>"])

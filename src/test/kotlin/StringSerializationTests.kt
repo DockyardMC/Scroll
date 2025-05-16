@@ -1,7 +1,6 @@
 import io.github.dockyardmc.scroll.*
 import io.github.dockyardmc.scroll.extensions.scrollSanitized
 import io.github.dockyardmc.scroll.extensions.toComponent
-import kotlin.math.exp
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -132,7 +131,7 @@ class StringSerializationTests {
     fun testClick() {
         val input = "<click:run_command:/seed>Click for Seed"
         val expected = Component.compound(mutableListOf(
-            Component(text = "Click for Seed", clickEvent = ClickEvent(ClickAction.RUN_COMMAND, "/seed"))
+            Component(text = "Click for Seed", clickEvent = ClickEvent.RunCommand("/seed"))
         ))
 
         assertEquals(expected.toJson(), Scroll.parse(input).toJson())
@@ -142,11 +141,24 @@ class StringSerializationTests {
     fun testHover() {
         val input = "<hover:show_text:'<red><bold><i>bucket o' fish'>hover over meeeee <r>do not hover over me"
         val expected = Component.compound(mutableListOf(
-            Component(text = "hover over meeeee ", hoverEvent = HoverEvent(HoverAction.SHOW_TEXT, "<red><bold><i>bucket o' fish".toComponent())),
+            Component(text = "hover over meeeee ", hoverEvent = HoverEvent.ShowText("<red><bold><i>bucket o' fish".toComponent())),
             Component(text = "do not hover over me")
         ))
 
         assertEquals(expected.toJson(), Scroll.parse(input).toJson())
+    }
+
+    @Test
+    fun testDefaultHover() {
+        val input = "<hover:':3'>Hover for colon three"
+        val expected = Component.compound(mutableListOf(
+            Component(
+                text = "Hover for colon three",
+                hoverEvent = HoverEvent.ShowText(":3")
+            )
+        ))
+
+        assertEquals(expected.toJson(), input.toComponent().toJson())
     }
 
     @Test
@@ -156,11 +168,27 @@ class StringSerializationTests {
         val expected = Component.compound(mutableListOf(
             Component(
                 text = "https://lukynka.cloud",
-                clickEvent = ClickEvent(ClickAction.OPEN_URL, "https://lukynka.cloud"),
+                clickEvent = ClickEvent.OpenUrl("https://lukynka.cloud"),
                 color = "#55FFFF",
                 underlined = true
             ),
         ))
+
+        assertEquals(expected.toJson(), input.toComponent().toJson())
+    }
+
+    @Test
+    fun testClickWithCustom() {
+        val input = "<click:custom:'my_id':'my_payload'>Omg!! click for custom action!!"
+
+        val expected = Component.compound(
+            mutableListOf(
+                Component(
+                    text = "Omg!! click for custom action!!",
+                    clickEvent = ClickEvent.Custom("my_id", "my_payload")
+                )
+            )
+        )
 
         assertEquals(expected.toJson(), input.toComponent().toJson())
     }
