@@ -149,6 +149,19 @@ class StringSerializationTests {
     }
 
     @Test
+    fun testDefaultHover() {
+        val input = "<hover:':3'>Hover for colon three"
+        val expected = Component.compound(mutableListOf(
+            Component(
+                text = "Hover for colon three",
+                hoverEvent = HoverEvent.ShowText(":3")
+            )
+        ))
+
+        assertEquals(expected.toJson(), input.toComponent().toJson())
+    }
+
+    @Test
     fun testClickWithLink() {
         val input = "<click:open_url:'https://lukynka.cloud'><aqua><underline>https://lukynka.cloud"
 
