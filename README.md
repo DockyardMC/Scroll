@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.dockyardmc:scroll:2.3")
+    implementation("io.github.dockyardmc:scroll:2.9")
 }
 ```
 <img src="https://github.com/LukynkaCZE/PrettyLog/assets/48604271/3293feca-7395-4100-8b61-257ba40dbe3c" width="18px"></img>
@@ -39,7 +39,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'io.github.dockyardmc:scroll:2.3'
+  implementation 'io.github.dockyardmc:scroll:2.9'
 }
 ```
 ---

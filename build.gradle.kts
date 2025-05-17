@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "io.github.dockyardmc"
-version = "2.8"
+version = "2.9"
 
 repositories {
     mavenCentral()
