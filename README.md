@@ -106,6 +106,11 @@ The following tags are valid:
 - Colors:
   - `<color>` for predefined color (ex. red, orange, lime, aqua)
   - `<#hex>` for custom hex color (must include the # at the start)
+- Shadow:
+  - `<shadow:#hex:alpha>`:
+    - `#hex`: 6 digits hex number, must include # at the start
+    - `alpha`: integer from 0 to 255
+  - Example: `<blue><shadow:#FF0000>Woah red shadow`
 - Format
   - `<bold>`
   - `<italic>`
