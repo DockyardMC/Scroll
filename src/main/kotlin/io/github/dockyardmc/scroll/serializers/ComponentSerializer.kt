@@ -3,6 +3,7 @@ package io.github.dockyardmc.scroll.serializers
 import io.github.dockyardmc.scroll.ClickEvent
 import io.github.dockyardmc.scroll.Component
 import io.github.dockyardmc.scroll.HoverEvent
+import io.github.dockyardmc.scroll.extensions.contains
 import net.kyori.adventure.nbt.*
 
 object ComponentSerializer {
@@ -57,11 +58,11 @@ object ComponentSerializer {
     }
 
     fun componentToNbt(component: Component): CompoundBinaryTag {
-        val compound = CompoundBinaryTag.empty()
+        val compound = CompoundBinaryTag.builder()
 
         if (component.color != null) compound.putString("color", component.color!!)
         if (component.shadowColor != null) {
-            val list = ListBinaryTag.listBinaryTag(BinaryTagTypes.DOUBLE, component.shadowColor!!.map { color -> DoubleBinaryTag.doubleBinaryTag(color) })
+            val list = ListBinaryTag.listBinaryTag(BinaryTagTypes.DOUBLE, component.shadowColor!!.map { color -> DoubleBinaryTag.doubleBinaryTag(color / 255.0) })
             compound.put("shadow_color", list)
         }
 
@@ -96,7 +97,7 @@ object ComponentSerializer {
         }
 
 
-        return compound
+        return compound.build()
     }
 
 }

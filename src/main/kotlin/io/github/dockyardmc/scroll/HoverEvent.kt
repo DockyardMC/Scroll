@@ -85,10 +85,10 @@ sealed class HoverEvent {
         override val type: String = "show_entity"
 
         override fun getNbt(): CompoundBinaryTag {
-            val nbt = super.getNbt()
-            nbt.putString("id", id)
-            nbt.putString("uuid", uuid)
-            if (name != null) nbt.put("name", name.toNBT())
+            var nbt = super.getNbt()
+            nbt = nbt.putString("id", id)
+            nbt = nbt.putString("uuid", uuid)
+            if (name != null) nbt = nbt.put("name", name.toNBT())
 
             return nbt
         }
