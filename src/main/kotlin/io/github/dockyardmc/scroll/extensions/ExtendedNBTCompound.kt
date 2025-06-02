@@ -2,8 +2,8 @@ package io.github.dockyardmc.scroll.extensions
 
 import io.github.dockyardmc.scroll.Component
 import io.github.dockyardmc.scroll.serializers.NbtToComponentSerializer
-import org.jglrxavpok.hephaistos.nbt.NBTCompound
+import net.kyori.adventure.nbt.CompoundBinaryTag
 
-fun NBTCompound.toComponent(): Component {
+fun CompoundBinaryTag.toComponent(): Component {
     return NbtToComponentSerializer.serializeNbt(this)
 }

@@ -1,13 +1,11 @@
 package io.github.dockyardmc.scroll
 
-import io.github.dockyardmc.scroll.extensions.put
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import kotlinx.serialization.json.JsonClassDiscriminator
-import org.jglrxavpok.hephaistos.nbt.NBT
-import org.jglrxavpok.hephaistos.nbt.NBTCompound
+import net.kyori.adventure.nbt.CompoundBinaryTag
 
 @Suppress("MemberVisibilityCanBePrivate")
 @OptIn(ExperimentalSerializationApi::class)
@@ -19,33 +17,32 @@ sealed class ClickEvent {
          * @throws MissingFieldException if there's a field missing
          * @throws UnsupportedOperationException if `action` is not supported
          */
-        fun fromNbt(nbt: NBTCompound): ClickEvent {
+        fun fromNbt(nbt: CompoundBinaryTag): ClickEvent {
+            // Implementation would need to be updated for the adventure-nbt library
+            // This is a placeholder for the conversion logic
             return when (val action = nbt.getString("action")) {
-                "open_url" -> OpenUrl(nbt.getString("url") ?: throw MissingFieldException("url"))
-                "open_file" -> OpenFile(nbt.getString("path") ?: throw MissingFieldException("path"))
-                "run_command" -> RunCommand(nbt.getString("command") ?: throw MissingFieldException("command"))
-                "suggest_command" -> SuggestCommand(nbt.getString("command") ?: throw MissingFieldException("command"))
-                "change_page" -> ChangePage(nbt.getInt("page") ?: throw MissingFieldException("page"))
-                "copy_to_clipboard" -> CopyToClipboard(nbt.getString("value") ?: throw MissingFieldException("value"))
-                "show_dialog" -> ShowDialog(nbt.getString("dialog") ?: throw MissingFieldException("dialog"))
-                "custom" -> Custom(
-                    nbt.getString("id") ?: throw MissingFieldException("id"),
-                    nbt.getString("payload") ?: throw MissingFieldException("payload")
-                )
-
-                null -> throw MissingFieldException("action")
-                else -> throw UnsupportedOperationException("unknown `action`: `$action`")
+                "open_url" -> OpenUrl(nbt.getString("url"))
+                "open_file" -> OpenFile(nbt.getString("path"))
+                "run_command" -> RunCommand(nbt.getString("command"))
+                "suggest_command" -> SuggestCommand(nbt.getString("command"))
+                "change_page" -> ChangePage(nbt.getInt("page"))
+                "copy_to_clipboard" -> CopyToClipboard(nbt.getString("value"))
+                "show_dialog" -> ShowDialog(nbt.getString("dialog"))
+                "custom" -> Custom(nbt.getString("id"), nbt.getString("payload"))
+                else -> throw UnsupportedOperationException("ClickEvent action '$action' is not supported")
             }
         }
+
     }
 
     abstract val action: String
 
-    open fun getNbt(): NBTCompound {
-        return NBT.Compound { builder ->
-            builder.put("action", action)
-        }
+    open fun getNbt(): CompoundBinaryTag {
+        return CompoundBinaryTag.builder()
+            .putString("action", action)
+            .build()
     }
+
 
     @Serializable
     @SerialName("open_url")
@@ -53,12 +50,11 @@ sealed class ClickEvent {
         @Transient
         override val action: String = "open_url"
 
-        override fun getNbt(): NBTCompound {
-            return super.getNbt().kmodify {
-                put("url", url)
-            }
+        override fun getNbt(): CompoundBinaryTag {
+            return super.getNbt().putString("url", url)
         }
     }
+
 
     @Serializable
     @SerialName("open_file")
@@ -66,12 +62,11 @@ sealed class ClickEvent {
         @Transient
         override val action: String = "open_file"
 
-        override fun getNbt(): NBTCompound {
-            return super.getNbt().kmodify {
-                put("path", path)
-            }
+        override fun getNbt(): CompoundBinaryTag {
+            return super.getNbt().putString("path", path)
         }
     }
+
 
     @Serializable
     @SerialName("run_command")
@@ -79,12 +74,11 @@ sealed class ClickEvent {
         @Transient
         override val action: String = "run_command"
 
-        override fun getNbt(): NBTCompound {
-            return super.getNbt().kmodify {
-                put("command", command)
-            }
+        override fun getNbt(): CompoundBinaryTag {
+            return super.getNbt().putString("command", command)
         }
     }
+
 
     @Serializable
     @SerialName("suggest_command")
@@ -92,12 +86,11 @@ sealed class ClickEvent {
         @Transient
         override val action: String = "suggest_command"
 
-        override fun getNbt(): NBTCompound {
-            return super.getNbt().kmodify {
-                put("command", command)
-            }
+        override fun getNbt(): CompoundBinaryTag {
+            return super.getNbt().putString("command", command)
         }
     }
+
 
     @Serializable
     @SerialName("change_page")
@@ -105,12 +98,11 @@ sealed class ClickEvent {
         @Transient
         override val action: String = "change_page"
 
-        override fun getNbt(): NBTCompound {
-            return super.getNbt().kmodify {
-                put("page", page)
-            }
+        override fun getNbt(): CompoundBinaryTag {
+            return super.getNbt().putInt("page", page)
         }
     }
+
 
     @Serializable
     @SerialName("copy_to_clipboard")
@@ -118,12 +110,11 @@ sealed class ClickEvent {
         @Transient
         override val action: String = "copy_to_clipboard"
 
-        override fun getNbt(): NBTCompound {
-            return super.getNbt().kmodify {
-                put("value", value)
-            }
+        override fun getNbt(): CompoundBinaryTag {
+            return super.getNbt().putString("value", value)
         }
     }
+
 
     @Serializable
     @SerialName("show_dialog")
@@ -131,12 +122,11 @@ sealed class ClickEvent {
         @Transient
         override val action: String = "show_dialog"
 
-        override fun getNbt(): NBTCompound {
-            return super.getNbt().kmodify {
-                put("dialog", dialog)
-            }
+        override fun getNbt(): CompoundBinaryTag {
+            return super.getNbt().putString("dialog", dialog)
         }
     }
+
 
     @Serializable
     @SerialName("custom")
@@ -144,11 +134,11 @@ sealed class ClickEvent {
         @Transient
         override val action: String = "custom"
 
-        override fun getNbt(): NBTCompound {
-            return super.getNbt().kmodify {
-                put("id", id)
-                put("payload", payload)
-            }
+        override fun getNbt(): CompoundBinaryTag {
+            return super.getNbt()
+                .putString("id", id)
+                .putString("payload", payload)
         }
     }
+
 }

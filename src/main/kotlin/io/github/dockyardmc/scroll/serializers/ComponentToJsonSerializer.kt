@@ -12,7 +12,6 @@ object ComponentToJsonSerializer {
             childComponent.shadowColor = new
         }
 
-
         return Json.encodeToJsonElement<Component>(component).toString()
     }
 }

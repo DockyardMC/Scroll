@@ -1,10 +1,10 @@
 package io.github.dockyardmc.scroll
 
 import io.github.dockyardmc.scroll.serializers.ComponentToJsonSerializer
-import io.github.dockyardmc.scroll.serializers.ComponentToNbtSerializer
+import io.github.dockyardmc.scroll.serializers.ComponentSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.jglrxavpok.hephaistos.nbt.NBTCompound
+import net.kyori.adventure.nbt.CompoundBinaryTag
 
 @Serializable
 open class Component(
@@ -25,7 +25,7 @@ open class Component(
     @SerialName("hover_event")
     var hoverEvent: HoverEvent? = null,
     @SerialName("click_event")
-    var clickEvent: ClickEvent? = null
+    var clickEvent: ClickEvent? = null,
 ) {
     companion object {
         fun compound(components: MutableList<Component>): Component {
@@ -40,8 +40,8 @@ open class Component(
         return this.stripStyling()
     }
 
-    fun toNBT(): NBTCompound {
-        return ComponentToNbtSerializer.serializeComponent(this)
+    fun toNBT(): CompoundBinaryTag {
+        return ComponentSerializer.componentToNbt(this)
     }
 
     fun toJson(): String {
@@ -71,14 +71,14 @@ open class Component(
 
     fun resetFormatting(includingFont: Boolean, ignoreShadow: Boolean = false) {
         this.color = null
-        if(!ignoreShadow) this.shadowColor = null
+        if (!ignoreShadow) this.shadowColor = null
         this.strikethrough = null
         this.underlined = null
         this.font = null
         this.italic = null
         this.bold = null
 
-        if(includingFont) {
+        if (includingFont) {
             this.font = null
             this.hoverEvent = null
             this.obfuscated = null

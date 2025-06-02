@@ -29,8 +29,7 @@ dependencies {
 
     implementation("com.google.code.gson:gson:2.13.1")
 
-    implementation("io.github.jglrxavpok.hephaistos:common:2.6.1")
-    implementation("io.github.jglrxavpok.hephaistos:gson:2.6.1")
+    implementation("net.kyori:adventure-nbt:4.21.0")
 }
 
 tasks.withType<Test> {
