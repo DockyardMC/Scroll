@@ -33,12 +33,6 @@ sealed class HoverEvent {
                     ShowText(valueTag.toComponent())
                 }
 
-                "show_item" -> {
-                    val id = nbt.getString("id")
-                    val count = nbt.getInt("count")
-                    ShowItem(id, count)
-                }
-
                 "show_entity" -> {
                     val id = nbt.getString("id")
                     val uuid = nbt.getString("uuid")
@@ -62,20 +56,6 @@ sealed class HoverEvent {
 
         override fun getNbt(): CompoundBinaryTag {
             return super.getNbt().put("value", value.toNBT())
-        }
-    }
-
-    // TODO: add components (recursive dependency? :( )
-    // will this ever be useful? You can make your own in way simpler way
-    // I think we can mark this unsupported -maya
-    @Serializable
-    @SerialName("show_item")
-    class ShowItem(val id: String, val count: Int) : HoverEvent() {
-        @Transient
-        override val type: String = "show_item"
-
-        init {
-            throw UnsupportedOperationException("ShowItem is not supported")
         }
     }
 

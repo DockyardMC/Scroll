@@ -51,7 +51,6 @@ object KyoriToScrollSerializer {
     private fun net.kyori.adventure.text.event.HoverEvent<*>.toScroll(): HoverEvent? {
         return when(val value = this.value()) {
             is net.kyori.adventure.text.Component -> HoverEvent.ShowText(value.toScroll())
-            is net.kyori.adventure.text.event.HoverEvent.ShowItem -> HoverEvent.ShowItem(value.item().asString(), value.count())
             is net.kyori.adventure.text.event.HoverEvent.ShowEntity -> HoverEvent.ShowEntity(value.type().asString(), value.id().toString(), value.name()?.toScroll())
             else -> null
         }
