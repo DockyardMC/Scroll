@@ -2,7 +2,6 @@ package io.github.dockyardmc.scroll
 
 import io.github.dockyardmc.scroll.extensions.toComponent
 import io.github.dockyardmc.scroll.serializers.ComponentSerializer
-import io.github.dockyardmc.scroll.serializers.JsonToComponentSerializer
 import net.kyori.adventure.nbt.TagStringIO
 
 fun main() {

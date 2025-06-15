@@ -79,12 +79,12 @@ object ComponentSerializer {
 
         val hover = component.hoverEvent
         if (hover != null) {
-            compound.put("hoverEvent", hover.getNbt())
+            compound.put("hover_event", hover.getNbt())
         }
 
         val click = component.clickEvent
         if (click != null) {
-            compound.put("clickEvent", click.getNbt())
+            compound.put("click_event", click.getNbt())
         }
 
         val extra = component.extra
