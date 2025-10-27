@@ -13,7 +13,7 @@ object JsonToComponentSerializer {
     }
 }
 
-internal class ComponentDeserializer : JsonTransformingSerializer<Component>(Component.serializer()) {
+internal class ComponentDeserializer : JsonTransformingSerializer<Component>(Component.generatedSerializer()) {
     override fun transformDeserialize(element: JsonElement): JsonElement = when (element) {
         is JsonPrimitive -> buildJsonObject {
             put("text", element)

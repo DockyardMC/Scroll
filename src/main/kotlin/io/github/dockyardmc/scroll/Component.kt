@@ -1,12 +1,15 @@
 package io.github.dockyardmc.scroll
 
+import io.github.dockyardmc.scroll.serializers.ComponentDeserializer
 import io.github.dockyardmc.scroll.serializers.ComponentToJsonSerializer
 import io.github.dockyardmc.scroll.serializers.ComponentSerializer
+import kotlinx.serialization.KeepGeneratedSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import net.kyori.adventure.nbt.CompoundBinaryTag
 
-@Serializable
+@KeepGeneratedSerializer
+@Serializable(with = ComponentDeserializer::class)
 open class Component(
     var extra: MutableList<Component>? = null,
     var keybind: String? = null,
