@@ -2,6 +2,7 @@ import io.github.dockyardmc.scroll.ClickEvent
 import io.github.dockyardmc.scroll.Component
 import io.github.dockyardmc.scroll.serializers.JsonToComponentSerializer
 import io.github.dockyardmc.scroll.extensions.toComponent
+import org.junit.jupiter.api.assertDoesNotThrow
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -42,5 +43,14 @@ class JsonSerializationTests {
         val expected = """{"text":"","click_event":{"action":"show_dialog","dialog":"my_dialog"}}"""
 
         assertEquals(input.toJson(), expected)
+    }
+
+    @Test
+    fun testJsonStringToComponent() {
+        val input = "\"test_text\""
+        val expected = Component(text = "test_text")
+
+        val result = assertDoesNotThrow { JsonToComponentSerializer.serialize(input) }
+        assertEquals(expected.toJson(), result.toJson())
     }
 }
